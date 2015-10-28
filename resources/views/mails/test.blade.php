@@ -1,0 +1,1 @@
+Su codigo de activacion es: {{$codigo}}
