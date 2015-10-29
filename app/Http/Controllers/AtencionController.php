@@ -8,6 +8,8 @@ use course\Http\Controllers\Controller;
 use course\User;
 use Illuminate\Support\Facades\Mail;
 use course\Atencion;
+use course\Lista;
+use Session;
 
 class AtencionController extends Controller
 {
@@ -31,6 +33,8 @@ class AtencionController extends Controller
         header("Access-Control-Allow-Origin: *");
         header("Allow: GET, POST, OPTIONS");
         
+        
+        
         $user_id =$request->input('user_id');
         $lista_id =$request->input('lista_id');
         $modo =$request->input('modo');
@@ -52,18 +56,65 @@ class AtencionController extends Controller
         
         $data = array(
         'codigo' => $atencion->codigo,
+        'usuario' => $usuario,
         );
     
-        Mail::send('mails.test', $data, function ($message) {
-            $message->to('cmedina@electrodata.com.pe')->subject('codigo de generacion');
+        Mail::send('mails.test', $data, function ($message) use ($usuario) {
+            $message->to($usuario->email)->subject('codigo de generacion');
         });
         
         
         $result = "se envió un correo a: ".$usuario->email;
-        
+        $request->session()->put('atencion', $atencion);
         return $result;
     }
 
+    public function generar_ticket(Request $request)
+    {
+        header("Access-Control-Allow-Origin: *");
+        header("Allow: GET, POST, OPTIONS");
+        
+        $user_id =$request->input('user_id');
+        $codigo =$request->input('codigo');
+        
+        
+        $atencion = Atencion::whereRaw('user_id = ? and codigo = ?', [$user_id,$codigo])->get()->first();
+        
+        if ($atencion == null){
+            Session::put('atencion', $atencion);
+            return $atencion;
+        }
+        else{
+            if ($atencion->posicion == null){
+                $atencion->posicion = Atencion::whereRaw('numero is not null and lista_id = ?', [$atencion->lista_id])->count()+1;
+                $atencion->save();
+                
+                $lista = Lista::find( $atencion->lista_id);
+                $atencion->numero=$lista->codigo.$atencion->posicion;
+                $atencion->estado_id=1;//estado 1 es en espera
+                $atencion->save();
+                
+            }
+            
+            //estado_id=1 es en espera
+            $predecesores = Atencion::whereRaw('estado_id = 1 and posicion < ? and lista_id = ?', [$atencion->posicion,$atencion->lista_id])->count();
+            
+            
+            Session::put('atencion', $atencion->toArray());
+            $array=$atencion->toArray();
+            $array['predecesores'] = $predecesores;
+            return $array;
+        }
+        
+    }
+
+    public function obtener_sesion(Request $request)
+    {
+        header("Access-Control-Allow-Origin: *");
+        header("Allow: GET, POST, OPTIONS");
+        $atencion=Session::get('atencion');
+        return $request->session()->get('atencion');
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -72,7 +123,7 @@ class AtencionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

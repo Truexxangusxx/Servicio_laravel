@@ -48,3 +48,8 @@ Route::controllers([
 Route::controllers([
         'atencions' => 'AtencionController'
 ]);
+
+Route::get('generar_ticket', 'AtencionController@generar_ticket');
+
+
+Route::get('obtener_sesion', 'AtencionController@obtener_sesion');
