@@ -62,3 +62,5 @@ Route::get('atender_atencion', 'AtencionController@atender_atencion');
 
 Route::get('listas_por_user', 'AsignacionController@listas_por_user');
 
+Route::get('ultimo_atendido', 'AtencionController@ultimo_atendido');
+

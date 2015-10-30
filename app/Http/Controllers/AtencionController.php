@@ -148,6 +148,20 @@ class AtencionController extends Controller
         
         return $atencion;
     }
+    
+    public function ultimo_atendido(Request $request)
+    {
+        header("Access-Control-Allow-Origin: *");
+        header("Allow: GET, POST, OPTIONS");
+        
+        $lista_id=$request->input('lista_id');
+        $user_id=$request->input('user_id');
+        
+        $atenciones = Atencion::whereRaw('lista_id=? and estado_id<>1',[$lista_id])->orderBy('id', 'desc')->first();
+        
+        return $atenciones;
+    }
+    
     /**
      * Store a newly created resource in storage.
      *
