@@ -42,6 +42,26 @@ class AsignacionController extends Controller
         return $asignacion;
     }
 
+
+    public function listas_por_user(Request $request)
+    {
+        header("Access-Control-Allow-Origin: *");
+        header("Allow: GET, POST, OPTIONS");
+        
+        
+        $user_id =$request->input('user_id');
+        
+        $asignaciones = Asignacion::whereRaw('user_id=?', [$user_id])->get();
+        
+        $array = [];
+        
+        foreach ($asignaciones as $asignacion){ 
+            $array[count($array)] = $asignacion->lista;
+        }
+        
+         
+        return $array;
+    }
     /**
      * Store a newly created resource in storage.
      *

@@ -34,6 +34,23 @@ class ListaController extends Controller
          
          return $listas->toArray();
     }
+    
+    public function postIndex()
+    {
+        header("Access-Control-Allow-Origin: *");
+        header("Allow: GET, POST, OPTIONS");
+        
+        $empresa_id =$request->input('empresa_id');
+        
+        if ($empresa_id==null){
+            $listas = Lista::all();
+        }
+        else{
+            $listas = Lista::where('empresa_id',$empresa_id)->get();
+        }
+         
+         return $listas->toArray();
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -53,6 +70,9 @@ class ListaController extends Controller
         
         return $lista;
     }
+
+
+    
 
     /**
      * Store a newly created resource in storage.

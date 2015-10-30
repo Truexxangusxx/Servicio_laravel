@@ -9,6 +9,7 @@ use course\User;
 use Illuminate\Support\Facades\Mail;
 use course\Atencion;
 use course\Lista;
+use course\Asignacion;
 use Session;
 
 class AtencionController extends Controller
@@ -103,6 +104,7 @@ class AtencionController extends Controller
             Session::put('atencion', $atencion->toArray());
             $array=$atencion->toArray();
             $array['predecesores'] = $predecesores;
+            $array['tiempo'] = ($predecesores*5)." minutos";
             return $array;
         }
         
@@ -114,6 +116,37 @@ class AtencionController extends Controller
         header("Allow: GET, POST, OPTIONS");
         $atencion=Session::get('atencion');
         return $request->session()->get('atencion');
+    }
+    
+    
+    public function obtener_lista(Request $request)
+    {
+        header("Access-Control-Allow-Origin: *");
+        header("Allow: GET, POST, OPTIONS");
+        
+        $lista_id=$request->input('lista_id');
+        $user_id=$request->input('user_id');
+        
+        $atenciones = Atencion::whereRaw('lista_id=? and estado_id=1',[$lista_id])->take(4)->get();
+        $atenciones[0]->colaborador_id=$user_id;
+        $atenciones[0]->save();
+        
+        return $atenciones;
+    }
+    
+    public function atender_atencion(Request $request)
+    {
+        header("Access-Control-Allow-Origin: *");
+        header("Allow: GET, POST, OPTIONS");
+        
+        $id=$request->input('id');
+        $estado_id=$request->input('estado_id');
+        
+        $atencion = Atencion::find($id);
+        $atencion->estado_id=$estado_id;
+        $atencion->save();
+        
+        return $atencion;
     }
     /**
      * Store a newly created resource in storage.

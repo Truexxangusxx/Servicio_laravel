@@ -40,6 +40,9 @@ Route::controllers([
 Route::controllers([
         'listas' => 'ListaController'
 ]);
+Route::post('listas','ListaController@postIndex');
+
+
 
 Route::controllers([
         'asignacions' => 'AsignacionController'
@@ -51,5 +54,11 @@ Route::controllers([
 
 Route::get('generar_ticket', 'AtencionController@generar_ticket');
 
-
 Route::get('obtener_sesion', 'AtencionController@obtener_sesion');
+
+Route::get('obtener_lista', 'AtencionController@obtener_lista');
+
+Route::get('atender_atencion', 'AtencionController@atender_atencion');
+
+Route::get('listas_por_user', 'AsignacionController@listas_por_user');
+

@@ -31,4 +31,5 @@ class Asignacion extends Model
     }
     
     
+    
 }
