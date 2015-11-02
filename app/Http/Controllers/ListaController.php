@@ -35,10 +35,10 @@ class ListaController extends Controller
          return $listas->toArray();
     }
     
-    public function postIndex()
+    public function postIndex(Request $request)
     {
-        header("Access-Control-Allow-Origin: *");
-        header("Allow: GET, POST, OPTIONS");
+        //header("Access-Control-Allow-Origin: *");
+        //header("Allow: GET, POST, OPTIONS");
         
         $empresa_id =$request->input('empresa_id');
         

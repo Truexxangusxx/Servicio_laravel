@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use course\Http\Requests;
 use course\Http\Controllers\Controller;
 use course\User;
+use Session;
 
 class UsersController extends Controller{
 
@@ -55,10 +56,29 @@ class UsersController extends Controller{
             
             return $user;
         }
-    
-    
-    
         
+    
+        public function iniciar_sesion(Request $request)
+        {
+            header("Access-Control-Allow-Origin: *");
+            header("Allow: GET, POST, OPTIONS");
+            
+            $email =$request->input('email');
+            $password =$request->input('password');
+            
+            $user = User::whereRaw('email=? and password=?', [$email,$password])->first();
+            Session::put('user', $user);
+            
+            return $user;
+        }
+        
+        public function usuario_logeado(Request $request)
+        {
+            header("Access-Control-Allow-Origin: *");
+            header("Allow: GET, POST, OPTIONS");
+            
+            return Session::get('user');
+        }
         
     
 }

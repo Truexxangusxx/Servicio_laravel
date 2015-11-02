@@ -39,6 +39,23 @@
         <div class="container">
             <div class="content">
                 <div class="title">Laravel 5</div>
+                
+                
+                
+                
+                
+                    
+<form action="http://uxkkff16f65f.xxangusxx.koding.io:8000/listas" method="post" accept-charset="utf-8">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    <input type="submit" name="enviar" id="enviar" value="enviar" />
+</form>
+    
+                
+                
+                
+                
+                
+                
             </div>
         </div>
     </body>

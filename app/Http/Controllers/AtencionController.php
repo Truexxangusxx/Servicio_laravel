@@ -114,8 +114,8 @@ class AtencionController extends Controller
     {
         header("Access-Control-Allow-Origin: *");
         header("Allow: GET, POST, OPTIONS");
-        $atencion=Session::get('atencion');
-        return $request->session()->get('atencion');
+        $atencion=Session::get('user');
+        return Session::get('user');//$request->session()->get('user');
     }
     
     
