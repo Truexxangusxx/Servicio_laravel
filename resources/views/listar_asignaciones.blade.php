@@ -18,7 +18,7 @@ angular.module("colas",[])
 		$scope.asignacions = {};
 		
 		$http({
-		        url: "http://uxkkff16f65f.xxangusxx.koding.io:8000/asignacions",
+		        url: "/asignacions",
 		        method: "GET"
 		    })
         		.success(function(data){

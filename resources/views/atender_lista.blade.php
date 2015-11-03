@@ -24,7 +24,7 @@ angular.module("colas",[])
 		
 		
         $http({
-		        url: "http://uxkkff16f65f.xxangusxx.koding.io:8000/users",
+		        url: "/users",
 		        method: "GET",
 		        params: {"colaborador":1}
 		    })
@@ -40,7 +40,7 @@ angular.module("colas",[])
 		$scope.mostrar_cola=function(){
 		    
 		    $http({
-		        url: "http://uxkkff16f65f.xxangusxx.koding.io:8000/obtener_lista",
+		        url: "/obtener_lista",
 		        method: "GET",
 		        params: $scope.user
 		    })
@@ -54,7 +54,7 @@ angular.module("colas",[])
         		
         		
         		$http({
-		        url: "http://uxkkff16f65f.xxangusxx.koding.io:8000/ultimo_atendido",
+		        url: "/ultimo_atendido",
 		        method: "GET",
 		        params: $scope.user
 		    })
@@ -72,7 +72,7 @@ angular.module("colas",[])
 		$scope.atender_atencion=function(estado){
 		    
 		    $http({
-		        url: "http://uxkkff16f65f.xxangusxx.koding.io:8000/atender_atencion",
+		        url: "/atender_atencion",
 		        method: "GET",
 		        params: {"estado_id":estado,"id":$scope.atencions[0].id}
 		    })
@@ -87,7 +87,7 @@ angular.module("colas",[])
 		$scope.listar_listas=function(){
 		    
 		    $http({
-		        url: "http://uxkkff16f65f.xxangusxx.koding.io:8000/listas_por_user",
+		        url: "/listas_por_user",
 		        method: "GET",
 		        params: $scope.user
 		    })

@@ -21,7 +21,7 @@ angular.module("app",[])
 		$scope.registrar_usuario=function(){
 		   
 		   $http({
-		        url: "http://uxkkff16f65f.xxangusxx.koding.io:8000/users/create",
+		        url: "/users/create",
 		        method: "GET",
 		        params: $scope.nuevo_usuario
 		    })

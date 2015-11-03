@@ -20,7 +20,7 @@ angular.module("app",[])
 		
 		
 		$http({
-		        url: "http://uxkkff16f65f.xxangusxx.koding.io:8000/usuario_logeado",
+		        url: "/usuario_logeado",
 		        method: "GET"
 		    })
         		.success(function(data){
@@ -35,7 +35,7 @@ angular.module("app",[])
 		$scope.iniciar_sesion=function(){
 		   
 		   $http({
-		        url: "http://uxkkff16f65f.xxangusxx.koding.io:8000/iniciar_sesion",
+		        url: "/iniciar_sesion",
 		        method: "GET",
 		        params: $scope.user
 		    })

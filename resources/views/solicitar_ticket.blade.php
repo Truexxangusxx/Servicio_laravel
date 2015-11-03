@@ -23,7 +23,7 @@ angular.module("colas",[])
 		
 		
 		$http({
-		        url: "http://uxkkff16f65f.xxangusxx.koding.io:8000/empresas",
+		        url: "/empresas",
 		        method: "GET"
 		    })
         		.success(function(data){
@@ -35,7 +35,7 @@ angular.module("colas",[])
         		
         		
         $http({
-		        url: "http://uxkkff16f65f.xxangusxx.koding.io:8000/users",
+		        url: "/users",
 		        method: "GET",
 		        params: {"colaborador":0}
 		    })
@@ -52,7 +52,7 @@ angular.module("colas",[])
 		$scope.registrar_atencion=function(){
 		    
 		    $http({
-		        url: "http://uxkkff16f65f.xxangusxx.koding.io:8000/atencions/create",
+		        url: "/atencions/create",
 		        method: "GET",
 		        params: $scope.nueva_atencion
 		    })
@@ -67,7 +67,7 @@ angular.module("colas",[])
 		$scope.listar_listas=function(){
 		    
 		    $http({
-		        url: "http://uxkkff16f65f.xxangusxx.koding.io:8000/listas",
+		        url: "/listas",
 		        method: "GET",
 		        params: {"empresa_id":$scope.empresa}
 		    })

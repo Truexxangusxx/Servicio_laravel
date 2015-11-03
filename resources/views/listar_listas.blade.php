@@ -19,7 +19,7 @@ angular.module("colas",[])
 		$scope.listas = {};
 		
 		$http({
-		        url: "http://uxkkff16f65f.xxangusxx.koding.io:8000/listas",
+		        url: "/listas",
 		        method: "GET",
 		    })
         		.success(function(data){

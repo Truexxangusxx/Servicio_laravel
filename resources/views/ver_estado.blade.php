@@ -29,7 +29,7 @@ angular.module("colas", ['ngStorage'])
         $scope.atencion.user_id=$scope.$storage.user_id;
         
         $http({
-		        url: "http://uxkkff16f65f.xxangusxx.koding.io:8000/generar_ticket",
+		        url: "/generar_ticket",
 		        method: "GET",
 		        params: $scope.atencion
 		    })
@@ -44,7 +44,7 @@ angular.module("colas", ['ngStorage'])
         		
 		
 		$http({
-		        url: "http://uxkkff16f65f.xxangusxx.koding.io:8000/obtener_sesion",
+		        url: "/obtener_sesion",
 		        method: "GET"
 		    })
         		.success(function(data){
@@ -55,7 +55,7 @@ angular.module("colas", ['ngStorage'])
         		});
         		
         $http({
-		        url: "http://uxkkff16f65f.xxangusxx.koding.io:8000/users",
+		        url: "/users",
 		        method: "GET",
 		        params: {"colaborador":0}
 		    })
@@ -73,7 +73,7 @@ angular.module("colas", ['ngStorage'])
 		$scope.generar_ticket=function(){
 		    
 		    $http({
-		        url: "http://uxkkff16f65f.xxangusxx.koding.io:8000/generar_ticket",
+		        url: "/generar_ticket",
 		        method: "GET",
 		        params: $scope.atencion
 		    })
@@ -90,7 +90,7 @@ angular.module("colas", ['ngStorage'])
 		$scope.cancelar_ticket=function(){
 		    
 		    $http({
-		        url: "http://uxkkff16f65f.xxangusxx.koding.io:8000/listas",
+		        url: "/listas",
 		        method: "GET",
 		        params: {"empresa_id":$scope.empresa}
 		    })
@@ -105,7 +105,7 @@ angular.module("colas", ['ngStorage'])
 		$scope.nuevo_ticket=function(){
 		    
 		    $http({
-		        url: "http://uxkkff16f65f.xxangusxx.koding.io:8000/listas",
+		        url: "/listas",
 		        method: "GET",
 		        params: {"empresa_id":$scope.empresa}
 		    })

@@ -21,7 +21,7 @@ angular.module("colas",[])
 		
 		
 		$http({
-		        url: "http://uxkkff16f65f.xxangusxx.koding.io:8000/empresas",
+		        url: "/empresas",
 		        method: "GET",
 		    })
         		.success(function(data){
@@ -37,7 +37,7 @@ angular.module("colas",[])
 		$scope.registrar_lista=function(){
 		    
 		    $http({
-		        url: "http://uxkkff16f65f.xxangusxx.koding.io:8000/listas/create",
+		        url: "/listas/create",
 		        method: "GET",
 		        params: $scope.nueva_lista
 		    })
