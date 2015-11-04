@@ -26,10 +26,10 @@ angular.module("app",[])
 		        params: $scope.nuevo_usuario
 		    })
         		.success(function(data){
-                    alert(data);
+                    mensaje('Usuario registrado correctamente, revise su correo para activar su cuenta');
         		})
         		.error(function(err){
-        			alert(err);
+        			error(err.Message);
         	});
 		   
 		}
@@ -42,28 +42,37 @@ angular.module("app",[])
 </head>
 
 <body ng-controller="first_controller">
-
-
-
 <div ng-include="'nav'"></div>
+<div class = "container">
 
+<div class = "panel panel-primary" style="border: 1px solid #868688;">
+   <div class = "panel-heading" style="background: #868688;border: 1px solid #868688;">
+      <h3 class = "panel-title" >Registro de nuevo usuario</h3>
+   </div>
+   <div class = "panel-body" style="border: 1px solid #868688;">
+   
+   
 
 	
 <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">	
     <form role="form">
-    <h2>Registro de nuevo usuario</h2>
+    
     	<input type="text"  ng-model="nuevo_usuario.nombre" class = "form-control" placeholder = "Nombre"/><br/>
     	<input type="text"  ng-model="nuevo_usuario.email" class = "form-control" placeholder = "E-mail"/><br/>
     	<input type="password"  ng-model="nuevo_usuario.password" class = "form-control" placeholder = "Password"/><br/>
     	<input type="text"  ng-model="nuevo_usuario.dni" class = "form-control" placeholder = "DNI"/><br/>
     	
     	<a href = "#" class = "btn btn-default" role = "button" ng-click="registrar_usuario()">Registrar</a>
-    	<a href = "#" class = "btn btn-default" role = "button" >Cancelar</a>
+    	<a href = "#" class = "btn btn-default" role = "button" >Regresar</a>
     </form>
 </div>
 
 	
 
-	
+</div>
+</div>
+
+</div>
+<div id="footer" ng-include="'footer'"></div>	
 </body>
 </html>

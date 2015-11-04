@@ -87,10 +87,15 @@ angular.module("colas",[])
 </head>
 
 <body ng-controller="atencion_controller">
-
-
-
 <div ng-include="'nav'"></div>
+<div class = "container">
+
+<div class = "panel panel-primary" style="border: 1px solid #868688;">
+   <div class = "panel-heading" style="background: #868688;border: 1px solid #868688;">
+      <h3 class = "panel-title" >Solicitar ticket</h3>
+   </div>
+   <div class = "panel-body" style="border: 1px solid #868688;">
+   
 
 
 
@@ -98,7 +103,7 @@ angular.module("colas",[])
 	
 <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">	
     <form role="form">
-    <h2>Registro de nueva atencion</h2>
+    
         <select class = "form-control" ng-model="nueva_atencion.user_id" ng-options="item.id as item.name for item in usuarios track by item.id">
             <option value="">Temporalmente seleccione un usuario</option>
         </select><br/>
@@ -120,6 +125,10 @@ angular.module("colas",[])
 
 
 
-	
+</div>
+</div>
+
+</div>
+<div id="footer" ng-include="'footer'"></div>	
 </body>
 </html>

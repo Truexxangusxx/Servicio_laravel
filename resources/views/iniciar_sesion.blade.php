@@ -57,16 +57,21 @@ angular.module("app",[])
 </head>
 
 <body ng-controller="first_controller">
-
-
-
 <div ng-include="'nav'"></div>
+<div class = "container">
 
+<div class = "panel panel-primary" style="border: 1px solid #868688;">
+   <div class = "panel-heading" style="background: #868688;border: 1px solid #868688;">
+      <h3 class = "panel-title" >Iniciar sesion</h3>
+   </div>
+   <div class = "panel-body" style="border: 1px solid #868688;">
+   
+   
 
 	
 <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">	
     <form role="form">
-    <h2>Iniciar sesion</h2>
+    
     	<input type="text" ng-model="user.email" class = "form-control" placeholder = "Correo"/><br/>
     	<input type="password"  ng-model="user.password" class = "form-control" placeholder = "Password"/><br/>
     	
@@ -77,6 +82,10 @@ angular.module("app",[])
 
 	
 
-	
+</div>
+</div>
+
+</div>
+<div id="footer" ng-include="'footer'"></div>	
 </body>
 </html>

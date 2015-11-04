@@ -125,10 +125,15 @@ angular.module("colas", ['ngStorage'])
 </head>
 
 <body ng-controller="atencion_controller">
-
-
-
 <div ng-include="'nav'"></div>
+<div class = "container">
+
+<div class = "panel panel-primary" style="border: 1px solid #868688;">
+   <div class = "panel-heading" style="background: #868688;border: 1px solid #868688;">
+      <h3 class = "panel-title" >Consultar estado de ticket</h3>
+   </div>
+   <div class = "panel-body" style="border: 1px solid #868688;">
+   
 
 
 
@@ -136,18 +141,18 @@ angular.module("colas", ['ngStorage'])
 
 <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">	
     <form role="form">
-    <h2>Registro de nueva atencion</h2>
+    
         <select class = "form-control" ng-model="atencion.user_id" ng-options="item.id as item.name for item in usuarios track by item.id">
             <option value="">Temporalmente seleccione un usuario</option>
         </select><br/>
         <input type="text"  ng-model="atencion.codigo" class = "form-control" placeholder = "Ingrese codigo de seguridad"/><br/>
         <a href = "#" class = "btn btn-default" role = "button" ng-click="generar_ticket()">Generar ticket</a>
         
-        <div >
-        <h3>Numero de atencion: <span class = "label label-default">@{{atencion.numero}}</span></h3>
-        <h3>Linea de atencion: <span class = "label label-default">@{{atencion.lista.empresa.nombre}}-@{{atencion.lista.nombre}}</span></h3>
-        <h3>Cantidad predecesores: <span class = "label label-default">@{{atencion.predecesores}}</span></h3>
-        <h3>Tiempo estimado de espera: <span class = "label label-default">@{{atencion.tiempo}}</span></h3>
+        <div>
+        <h4>Numero: <span class = "label label-default">@{{atencion.numero}}</span></h4>
+        <h4>Linea: <span class = "label label-default">@{{atencion.lista.empresa.nombre}}-@{{atencion.lista.nombre}}</span></h4>
+        <h4>Predecesores: <span class = "label label-default">@{{atencion.predecesores}}</span></h4>
+        <h4>Tiempo estimado: <span class = "label label-default">@{{atencion.tiempo}}</span></h4>
         
         <br/>
     	<a href = "#" class = "btn btn-default" role = "button" ng-click="registrar_atencion()">Nuevo</a>
@@ -160,6 +165,10 @@ angular.module("colas", ['ngStorage'])
 
 
 
-	
+</div>
+</div>
+
+</div>
+<div id="footer" ng-include="'footer'"></div>	
 </body>
 </html>

@@ -38,12 +38,16 @@ angular.module("colas",[])
 </head>
 
 <body ng-controller="lista_controller">
-
-
-
 <div ng-include="'nav'"></div>
+<div class = "container">
 
-
+<div class = "panel panel-primary" style="border: 1px solid #868688;">
+   <div class = "panel-heading" style="background: #868688;border: 1px solid #868688;">
+      <h3 class = "panel-title" >Lista de lineas</h3>
+   </div>
+   <div class = "panel-body" style="border: 1px solid #868688;">
+   
+   
 
 
 
@@ -52,7 +56,7 @@ angular.module("colas",[])
 <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">	
 
     <table class = "table table-striped">
-       <caption>Lista de listas</caption>
+       <caption>Listado</caption>
        
        <thead>
           <tr>
@@ -80,6 +84,10 @@ angular.module("colas",[])
 
 
 
-	
+</div>
+</div>
+
+</div>
+<div id="footer" ng-include="'footer'"></div>	
 </body>
 </html>

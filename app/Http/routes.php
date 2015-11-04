@@ -60,6 +60,10 @@ Route::get('nav', function () {
     return view('nav');
 });
 
+Route::get('footer', function () {
+    return view('footer');
+});
+
 Route::get('demo', function () {
     return view('demo');
 });

@@ -40,7 +40,7 @@ angular.module("colas",[])
 		        params: $scope.empresa
 		    })
         		.success(function(data){
-                    $window.location.href ="/views/listar_empresas.html";
+                    $window.location.href ="/app_listar_empresas";
         		})
         		.error(function(err){
         			alert(err);
@@ -54,10 +54,16 @@ angular.module("colas",[])
 </head>
 
 <body ng-controller="empresa_controller">
-
-
-
 <div ng-include="'nav'"></div>
+<div class = "container">
+
+<div class = "panel panel-primary" style="border: 1px solid #868688;">
+   <div class = "panel-heading" style="background: #868688;border: 1px solid #868688;">
+      <h3 class = "panel-title" >Registro de nueva empresa</h3>
+   </div>
+   <div class = "panel-body" style="border: 1px solid #868688;">
+   
+   
 
 
 
@@ -65,7 +71,7 @@ angular.module("colas",[])
 	
 <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">	
     <form role="form">
-    <h2>Registro de nueva empresa</h2>
+    
     	<input type="text"  ng-model="empresa.nombre" class = "form-control" placeholder = "Ingrese nombre de la empresa"/><br/>
     	<input type="text"  ng-model="empresa.codigo" class = "form-control" placeholder = "Ingrese codigo de la empresa"/><br/>
     	<a href = "#" class = "btn btn-default" role = "button" ng-click="registrar_empresa()">Registrar</a>
@@ -76,6 +82,10 @@ angular.module("colas",[])
 
 
 
-	
+</div>
+</div>
+
+</div>
+<div id="footer" ng-include="'footer'"></div>	
 </body>
 </html>
