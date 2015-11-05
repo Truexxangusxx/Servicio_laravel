@@ -46,26 +46,29 @@ class AtencionController extends Controller
         ,'modo' => $modo]);
         
         
-        
         $codigo=$atencion->id.date("d").date("i");
-        
         
         
         $atencion->codigo = $codigo;
         $atencion->save();
         
+        if ($modo=="correo"){
+            $data = array(
+            'codigo' => $atencion->codigo,
+            'usuario' => $usuario,
+            );
         
-        $data = array(
-        'codigo' => $atencion->codigo,
-        'usuario' => $usuario,
-        );
-    
-        Mail::send('mails.test', $data, function ($message) use ($usuario) {
-            $message->to($usuario->email)->subject('codigo de generacion');
-        });
+            Mail::send('mails.test', $data, function ($message) use ($usuario) {
+                $message->to($usuario->email)->subject('codigo de generacion');
+            });
+            
+            $result = "Se envió un correo a: ".$usuario->email;    
+        }
+        else{
+            $result = "Su codigo de seguridad es: ".$codigo;    
+        }
         
         
-        $result = "se envió un correo a: ".$usuario->email;
         $request->session()->put('atencion', $atencion);
         return $result;
     }

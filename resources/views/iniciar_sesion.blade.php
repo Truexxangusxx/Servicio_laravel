@@ -41,10 +41,10 @@ angular.module("app",[])
 		    })
         		.success(function(data){
         		    console.log(data);
-                    alert("el usuario "+data.name+" se ha logeado correctamente");
+                    mensaje("el usuario "+data.name+" se ha logeado correctamente");
         		})
         		.error(function(err){
-        			alert(err);
+        			error(err.Message);
         	});
 		   
 		}
