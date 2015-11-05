@@ -59,6 +59,7 @@ angular.module("colas",[])
         		})
         		.error(function(err){
         			console.log(err);
+        			error(err.Message);
         		});
 		}
 		

@@ -77,10 +77,11 @@ angular.module("colas",[])
 		        params: {"estado_id":estado,"id":$scope.atencions[0].id}
 		    })
         		.success(function(data){
-                    alert("atendido!!!, refresca la pagina");
+                    mensaje("atendido!!!, refresca la pagina");
         		})
         		.error(function(err){
         			console.log(err);
+        			error(err.Message);
         		});
 		}
 		

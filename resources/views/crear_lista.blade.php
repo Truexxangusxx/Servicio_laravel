@@ -45,7 +45,7 @@ angular.module("colas",[])
                     $window.location.href ="/app_listar_listas";
         		})
         		.error(function(err){
-        			alert(err);
+        			error(err.Message);
         		});
 		}
 		

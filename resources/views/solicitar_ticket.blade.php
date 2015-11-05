@@ -57,10 +57,11 @@ angular.module("colas",[])
 		        params: $scope.nueva_atencion
 		    })
         		.success(function(data){
-                    alert(data);
+                    mensaje(data);
         		})
         		.error(function(err){
         			console.log(err);
+        			error(err.Message);
         		});
 		}
 		
@@ -119,7 +120,7 @@ angular.module("colas",[])
             <option value="sms">sms</option>
         </select><br/>
     	<a href = "#" class = "btn btn-default" role = "button" ng-click="registrar_atencion()">Registrar</a>
-    	<a href = "/views/listar_atenciones.html" class = "btn btn-default" role = "button" >Regresar</a>
+    	<a href = "#" class = "btn btn-default" role = "button" >Regresar</a>
     </form>
 </div>
 

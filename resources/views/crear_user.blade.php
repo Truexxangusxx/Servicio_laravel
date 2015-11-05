@@ -13,6 +13,7 @@
 	
 <script>
 
+
 angular.module("app",[])
 	.controller("first_controller", function($scope, $http){
 		
@@ -57,7 +58,7 @@ angular.module("app",[])
 <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">	
     <form role="form">
     
-    	<input type="text"  ng-model="nuevo_usuario.nombre" class = "form-control" placeholder = "Nombre"/><br/>
+        <input type="text"  ng-model="nuevo_usuario.nombre" class = "form-control" placeholder = "Nombre" /><br/>
     	<input type="text"  ng-model="nuevo_usuario.email" class = "form-control" placeholder = "E-mail"/><br/>
     	<input type="password"  ng-model="nuevo_usuario.password" class = "form-control" placeholder = "Password"/><br/>
     	<input type="text"  ng-model="nuevo_usuario.dni" class = "form-control" placeholder = "DNI"/><br/>

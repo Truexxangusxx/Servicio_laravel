@@ -155,9 +155,9 @@ angular.module("colas", ['ngStorage'])
         <h4>Tiempo estimado: <span class = "label label-default">@{{atencion.tiempo}}</span></h4>
         
         <br/>
-    	<a href = "#" class = "btn btn-default" role = "button" ng-click="registrar_atencion()">Nuevo</a>
-    	<a href = "/views/listar_atenciones.html" class = "btn btn-default" role = "button" >Actualizar</a>
-    	<a href = "#" class = "btn btn-default" role = "button" ng-click="registrar_atencion()">Cancelar</a>
+    	<a href = "app_solicitar_ticket" class = "btn btn-default" role = "button">Nuevo</a>
+    	<a href = "#" class = "btn btn-default" role = "button" >Actualizar</a>
+    	<a href = "#" class = "btn btn-default" role = "button" >Cancelar</a>
         </div>
         
     </form>
