@@ -21,7 +21,17 @@ angular.module("colas",[])
 		$scope.listas = {};
 		$scope.usuarios = {};
 		
-		
+		$scope.sesion={};
+		$http({
+		        url: "/usuario_logeado",
+		        method: "GET"
+		    })
+        		.success(function(data){
+                    $scope.sesion=data;
+        		})
+        		.error(function(err){
+        			console.log(err);
+        	});
 		
         $http({
 		        url: "/users",

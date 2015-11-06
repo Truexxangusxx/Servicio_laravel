@@ -72,6 +72,16 @@ class UsersController extends Controller{
             return $user;
         }
         
+        public function cerrar_sesion(Request $request)
+        {
+            header("Access-Control-Allow-Origin: *");
+            header("Allow: GET, POST, OPTIONS");
+            
+            Session::forget('user');
+            
+            return view('iniciar_sesion');
+        }
+        
         public function usuario_logeado(Request $request)
         {
             header("Access-Control-Allow-Origin: *");

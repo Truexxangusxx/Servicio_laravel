@@ -1,0 +1,43 @@
+html,
+body {
+  height: 100%;
+}
+
+
+#footer {
+  height: 60px;
+  background-color: #F8F8F8;
+  border: 1px solid #e7e7e7;
+}
+
+.container {
+  width: auto;
+  max-width: 800px;
+  padding: 0 15px;
+  min-height: 76.7%;
+}
+.container .credit {
+  margin: 20px 0;
+}
+
+
+
+
+div .panel
+{
+    border: 1px solid #3E5DB0;
+}
+.panel .panel-heading
+{
+    background: #3E5DB0;border: 1px solid #3E5DB0;
+}
+.panel .panel-body
+{
+    border: 1px solid #3E5DB0;
+}
+
+
+.navbar{
+    background: #D5E1FF;
+}
+

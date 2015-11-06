@@ -17,6 +17,20 @@ angular.module("colas",[])
 	.controller("asignacion_controller", function($scope, $http,$window){
 		$scope.asignacions = {};
 		
+		
+		$scope.sesion={};
+		$http({
+		        url: "/usuario_logeado",
+		        method: "GET"
+		    })
+        		.success(function(data){
+                    $scope.sesion=data;
+        		})
+        		.error(function(err){
+        			console.log(err);
+        	});
+		
+		
 		$http({
 		        url: "/asignacions",
 		        method: "GET"

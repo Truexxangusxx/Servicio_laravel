@@ -18,6 +18,19 @@ angular.module("colas",[])
 		$scope.empresa = {};
 		$scope.empresas = {};
 		
+		
+		$scope.sesion={};
+		$http({
+		        url: "/usuario_logeado",
+		        method: "GET"
+		    })
+        		.success(function(data){
+                    $scope.sesion=data;
+        		})
+        		.error(function(err){
+        			console.log(err);
+        	});
+		
 		$http({
 		        url: "/empresas",
 		        method: "GET",

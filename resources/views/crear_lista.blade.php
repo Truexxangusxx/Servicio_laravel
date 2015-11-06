@@ -18,7 +18,17 @@ angular.module("colas",[])
 		$scope.nueva_lista = {};
 		$scope.empresas = {};
 		
-		
+		$scope.sesion={};
+		$http({
+		        url: "/usuario_logeado",
+		        method: "GET"
+		    })
+        		.success(function(data){
+                    $scope.sesion=data;
+        		})
+        		.error(function(err){
+        			console.log(err);
+        	});
 		
 		$http({
 		        url: "/empresas",

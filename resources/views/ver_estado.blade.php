@@ -21,6 +21,22 @@ angular.module("colas", ['ngStorage'])
 	.controller("atencion_controller", function($scope, $http,$window,$localStorage){
 		$scope.atencion = {};
 		$scope.usuarios = {};
+		
+		
+		$scope.sesion={};
+		$http({
+		        url: "/usuario_logeado",
+		        method: "GET"
+		    })
+        		.success(function(data){
+                    $scope.sesion=data;
+        		})
+        		.error(function(err){
+        			console.log(err);
+        	});
+		
+		
+		
 		$scope.$storage = $localStorage.$default({
           codigo: "",
           user_id: 0

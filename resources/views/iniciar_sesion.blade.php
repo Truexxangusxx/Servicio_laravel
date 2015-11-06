@@ -1,5 +1,5 @@
-    <!DOCTYPE html>
-<html ng-app="app">
+<!DOCTYPE html>
+<html ng-app="app" >
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,47 +10,12 @@
  	<script src="{{ URL::asset('assets/js/jquery-1.11.3.min.js') }}"></script>
     <script src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ URL::asset('assets/js/angular.min.js') }}"></script>
+    
+    <script src="{{ URL::asset('assets/js/app.js') }}"></script>
 	
 <script>
 
-angular.module("app",[])
-	.controller("first_controller", function($scope, $http){
-		
-        $scope.nuevo_usuario={};
-		
-		
-		$http({
-		        url: "/usuario_logeado",
-		        method: "GET"
-		    })
-        		.success(function(data){
-                    console.log(data);
-        		})
-        		.error(function(err){
-        			console.log(err);
-        	});
-		
-		
-		
-		$scope.iniciar_sesion=function(){
-		   
-		   $http({
-		        url: "/iniciar_sesion",
-		        method: "GET",
-		        params: $scope.user
-		    })
-        		.success(function(data){
-        		    console.log(data);
-                    mensaje("el usuario "+data.name+" se ha logeado correctamente");
-        		})
-        		.error(function(err){
-        			error(err.Message);
-        	});
-		   
-		}
-		
-		
-	});
+
 
 </script>
 

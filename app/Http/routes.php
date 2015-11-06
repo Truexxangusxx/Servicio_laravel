@@ -122,5 +122,7 @@ Route::get('ultimo_atendido', 'AtencionController@ultimo_atendido');
 
 Route::get('iniciar_sesion', 'UsersController@iniciar_sesion');
 
+Route::get('cerrar_sesion', 'UsersController@cerrar_sesion');
+
 Route::get('usuario_logeado', 'UsersController@usuario_logeado');
 

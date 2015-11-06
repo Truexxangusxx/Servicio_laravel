@@ -14,27 +14,7 @@ $("#error a").text(msg);
 </script>
 
 <style>
-html,
-body {
-  height: 100%;
-}
 
-
-#footer {
-  height: 60px;
-  background-color: #F8F8F8;
-  border: 1px solid #e7e7e7;
-}
-
-.container {
-  width: auto;
-  max-width: 800px;
-  padding: 0 15px;
-  min-height: 76.7%;
-}
-.container .credit {
-  margin: 20px 0;
-}
 </style>
 
 <nav id = "navbar-example" class = "navbar navbar-default navbar-static" role = "navigation">
@@ -54,6 +34,19 @@ body {
    <div class = "collapse navbar-collapse bs-js-navbar-scrollspy">
       <ul class = "nav navbar-nav">
          
+         <li class = "dropdown" ng-if="sesion.name==Undefined">
+            <a href = "#" id = "navbarDrop1" class = "dropdown-toggle" data-toggle = "dropdown">
+               Sesion
+               <b class = "caret"></b>
+            </a>
+            <ul class = "dropdown-menu" role = "menu" aria-labelledby = "navbarDrop1">
+               <li><a href = "app_iniciar_sesion" tabindex = "-1">Iniciar sesion</a></li>
+               <li><a href = "app_crear_user" tabindex = "-1">Registrar usuario</a></li>
+            </ul>
+         </li>
+         <li ng-if="sesion.name!=Undefined"><a href = "cerrar_sesion">cerrar sesion (@{{sesion.name}})</a></li>
+         
+         
          <li class = "dropdown">
             <a href = "#" id = "navbarDrop1" class = "dropdown-toggle" data-toggle = "dropdown">
                Mantenimientos
@@ -62,16 +55,6 @@ body {
             <ul class = "dropdown-menu" role = "menu" aria-labelledby = "navbarDrop1">
                <li><a href = "app_listar_empresas" tabindex = "-1">Empresas</a></li>
                <li><a href = "app_listar_listas" tabindex = "-1">listas</a></li>
-            </ul>
-         </li>
-         <li class = "dropdown">
-            <a href = "#" id = "navbarDrop1" class = "dropdown-toggle" data-toggle = "dropdown">
-               Sesion
-               <b class = "caret"></b>
-            </a>
-            <ul class = "dropdown-menu" role = "menu" aria-labelledby = "navbarDrop1">
-               <li><a href = "app_iniciar_sesion" tabindex = "-1">Iniciar sesion</a></li>
-               <li><a href = "app_crear_user" tabindex = "-1">Registrar usuario</a></li>
             </ul>
          </li>
          
@@ -85,8 +68,6 @@ body {
    </div>
 
 </nav>
-
-
 
 
 

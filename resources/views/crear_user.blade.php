@@ -18,6 +18,20 @@ angular.module("app",[])
 	.controller("first_controller", function($scope, $http){
 		
         $scope.nuevo_usuario={};
+        
+        
+        $scope.sesion={};
+		$http({
+		        url: "/usuario_logeado",
+		        method: "GET"
+		    })
+        		.success(function(data){
+                    $scope.sesion=data;
+        		})
+        		.error(function(err){
+        			console.log(err);
+        	});
+        
 		
 		$scope.registrar_usuario=function(){
 		   
