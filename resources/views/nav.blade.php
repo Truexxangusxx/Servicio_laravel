@@ -28,7 +28,7 @@ $("#error a").text(msg);
          <span class = "icon-bar"></span>
       </button>
 		
-      <a class = "navbar-brand" href = "http://www.electrodata.com.pe" style="padding-top:10px;" ><img height="30px" src="{{ asset('assets/images/logo.jpg') }}"></a>
+      <a class = "navbar-brand" href = "http://www.electrodata.com.pe" style="padding-top:10px;" ><img height="30px" src="{{ asset('assets/images/logo2.jpg') }}"></a>
    </div>
    
    <div class = "collapse navbar-collapse bs-js-navbar-scrollspy">

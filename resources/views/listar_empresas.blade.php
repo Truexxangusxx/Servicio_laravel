@@ -7,6 +7,7 @@
     <title>Sistema de colas</title>
 
     <link href="{{ URL::asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ URL::asset('assets/css/personalizado.css') }}" rel="stylesheet" type="text/css">
  	<script src="{{ URL::asset('assets/js/jquery-1.11.3.min.js') }}"></script>
     <script src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ URL::asset('assets/js/angular.min.js') }}"></script>
@@ -56,11 +57,11 @@ angular.module("colas",[])
 <div ng-include="'nav'"></div>
 <div class = "container">
 
-<div class = "panel panel-primary" style="border: 1px solid #868688;">
-   <div class = "panel-heading" style="background: #868688;border: 1px solid #868688;">
-      <h3 class = "panel-title" >Lista de empresas</h3>
+<div class = "panel panel-primary">
+   <div class = "panel-heading">
+      <h3 class = "panel-title">Listar empresas</h3>
    </div>
-   <div class = "panel-body" style="border: 1px solid #868688;">
+   <div class = "panel-body">
    
    
 

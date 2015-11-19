@@ -7,18 +7,16 @@
     <title>Sistema de colas</title>
 
     <link href="{{ URL::asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ URL::asset('assets/css/personalizado.css') }}" rel="stylesheet" type="text/css">
  	<script src="{{ URL::asset('assets/js/jquery-1.11.3.min.js') }}"></script>
     <script src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ URL::asset('assets/js/angular.min.js') }}"></script>
-	
-	
-    <script src="https://rawgithub.com/gsklee/ngStorage/master/ngStorage.js"></script>
     
 	
 <script>
 
-angular.module("colas", ['ngStorage'])
-	.controller("atencion_controller", function($scope, $http,$window,$localStorage){
+angular.module("colas",[])
+	.controller("atencion_controller", function($scope, $http,$window){
 		$scope.atencion = {};
 		$scope.usuarios = {};
 		
@@ -35,59 +33,23 @@ angular.module("colas", ['ngStorage'])
         			console.log(err);
         	});
 		
-		
-		
-		$scope.$storage = $localStorage.$default({
-          codigo: "",
-          user_id: 0
-        });
-        $scope.atencion.codigo=$scope.$storage.codigo;
-        $scope.atencion.user_id=$scope.$storage.user_id;
         
         $http({
-		        url: "/generar_ticket",
+		        url: "/obtener_sesion_atencion",
 		        method: "GET",
 		        params: $scope.atencion
 		    })
         		.success(function(data){
                     $scope.atencion=data;
-                    $scope.$storage.codigo=data.codigo;
-                    $scope.$storage.user_id=data.user_id;
         		})
         		.error(function(err){
         			console.log(err);
         		});
         		
-		
-		$http({
-		        url: "/obtener_sesion",
-		        method: "GET"
-		    })
-        		.success(function(data){
-                    console.log(data);
-        		})
-        		.error(function(err){
-        			console.log(err);
-        		});
-        		
-        $http({
-		        url: "/users",
-		        method: "GET",
-		        params: {"colaborador":0}
-		    })
-        		.success(function(data){
-                    $scope.usuarios=data;
-                    
-        		})
-        		.error(function(err){
-        			console.log(err);
-        		});
-	
-		
 		
 		
 		$scope.generar_ticket=function(){
-		    
+		    $scope.atencion.user_id=$scope.sesion.id;
 		    $http({
 		        url: "/generar_ticket",
 		        method: "GET",
@@ -95,8 +57,6 @@ angular.module("colas", ['ngStorage'])
 		    })
         		.success(function(data){
                     $scope.atencion=data;
-                    $scope.$storage.codigo=data.codigo;
-                    $scope.$storage.user_id=data.user_id;
         		})
         		.error(function(err){
         			console.log(err);
@@ -144,11 +104,11 @@ angular.module("colas", ['ngStorage'])
 <div ng-include="'nav'"></div>
 <div class = "container">
 
-<div class = "panel panel-primary" style="border: 1px solid #868688;">
-   <div class = "panel-heading" style="background: #868688;border: 1px solid #868688;">
-      <h3 class = "panel-title" >Consultar estado de ticket</h3>
+<div class = "panel panel-primary">
+   <div class = "panel-heading">
+      <h3 class = "panel-title">Consultar estado de ticket</h3>
    </div>
-   <div class = "panel-body" style="border: 1px solid #868688;">
+   <div class = "panel-body">
    
 
 
@@ -158,9 +118,7 @@ angular.module("colas", ['ngStorage'])
 <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">	
     <form role="form">
     
-        <select class = "form-control" ng-model="atencion.user_id" ng-options="item.id as item.name for item in usuarios track by item.id">
-            <option value="">Temporalmente seleccione un usuario</option>
-        </select><br/>
+        
         <input type="text"  ng-model="atencion.codigo" class = "form-control" placeholder = "Ingrese codigo de seguridad"/><br/>
         <a href = "#" class = "btn btn-default" role = "button" ng-click="generar_ticket()">Generar ticket</a>
         

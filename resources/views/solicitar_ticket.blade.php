@@ -7,6 +7,7 @@
     <title>Sistema de colas</title>
 
     <link href="{{ URL::asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ URL::asset('assets/css/personalizado.css') }}" rel="stylesheet" type="text/css">
  	<script src="{{ URL::asset('assets/js/jquery-1.11.3.min.js') }}"></script>
     <script src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ URL::asset('assets/js/angular.min.js') }}"></script>
@@ -75,14 +76,23 @@ angular.module("colas",[])
 		
 		
 		$scope.registrar_atencion=function(){
-		    
+            $scope.nueva_atencion.user_id = $scope.sesion.id;
 		    $http({
 		        url: "/atencions/create",
 		        method: "GET",
 		        params: $scope.nueva_atencion
 		    })
         		.success(function(data){
-                    mensaje(data);
+                    
+                    if ($scope.nueva_atencion.modo =="correo")
+                    {
+                        mensaje(data);
+                    }
+                    else{
+                        $("#impresion h1").text(data);
+                        $scope.printDiv("impresion");    
+                    }
+                    
         		})
         		.error(function(err){
         			console.log(err);
@@ -105,6 +115,14 @@ angular.module("colas",[])
         		});
 		}
 		
+		$scope.printDiv = function(divName) {
+          var printContents = document.getElementById(divName).innerHTML;
+          var popupWin = window.open('', '_blank', 'width=300,height=300');
+          popupWin.document.open()
+          popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="style.css" /></head><body onload="window.print()">' + printContents + '</html>');
+          popupWin.document.close();
+        }
+		
 		
 	});
 
@@ -116,11 +134,11 @@ angular.module("colas",[])
 <div ng-include="'nav'"></div>
 <div class = "container">
 
-<div class = "panel panel-primary" style="border: 1px solid #868688;">
-   <div class = "panel-heading" style="background: #868688;border: 1px solid #868688;">
-      <h3 class = "panel-title" >Solicitar ticket</h3>
+<div class = "panel panel-primary">
+   <div class = "panel-heading">
+      <h3 class = "panel-title">Solicitar nuevo ticket</h3>
    </div>
-   <div class = "panel-body" style="border: 1px solid #868688;">
+   <div class = "panel-body">
    
 
 
@@ -130,9 +148,7 @@ angular.module("colas",[])
 <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">	
     <form role="form">
     
-        <select class = "form-control" ng-model="nueva_atencion.user_id" ng-options="item.id as item.name for item in usuarios track by item.id">
-            <option value="">Temporalmente seleccione un usuario</option>
-        </select><br/>
+    
         <select class = "form-control" ng-model="empresa" ng-options="item.id as item.nombre for item in empresas track by item.id" ng-change="listar_listas()">
             <option value="">Seleccione una empresa</option>
         </select><br/>
@@ -142,17 +158,25 @@ angular.module("colas",[])
     	<select class = "form-control" ng-model="nueva_atencion.modo" >
             <option value="">Seleccione un modo de recepcion</option>
             <option value="correo">correo</option>
-            <option value="en pantalla">en pantalla</option>
+            <option value="imprimir">imprimir</option>
         </select><br/>
     	<a href = "#" class = "btn btn-default" role = "button" ng-click="registrar_atencion()">Registrar</a>
-    	<a href = "#" class = "btn btn-default" role = "button" >Regresar</a>
+    	<a href = "#" class = "btn btn-default" role = "button" ng-click="printDiv('impresion')">Regresar</a>
     </form>
 </div>
 
 
 
+
+
 </div>
 </div>
+
+
+<div id="impresion" style="display:none;">
+    <h1>esto se imprimira</h1>
+</div>
+
 
 </div>
 <div id="footer" ng-include="'footer'"></div>	

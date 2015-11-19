@@ -35,7 +35,6 @@ class AtencionController extends Controller
         header("Allow: GET, POST, OPTIONS");
         
         
-        
         $user_id =$request->input('user_id');
         $lista_id =$request->input('lista_id');
         $modo =$request->input('modo');
@@ -52,20 +51,42 @@ class AtencionController extends Controller
         $atencion->codigo = $codigo;
         $atencion->save();
         
-        if ($modo=="correo"){
-            $data = array(
-            'codigo' => $atencion->codigo,
-            'usuario' => $usuario,
-            );
         
-            Mail::send('mails.test', $data, function ($message) use ($usuario) {
-                $message->to($usuario->email)->subject('codigo de generacion');
-            });
+        
+        switch ($modo) {
+            case "correo":
+                $data = array(
+                'codigo' => $atencion->codigo,
+                'usuario' => $usuario,
+                );
             
-            $result = "Se envió un correo a: ".$usuario->email;    
+                Mail::send('mails.test', $data, function ($message) use ($usuario) {
+                    $message->to($usuario->email)->subject('codigo de generacion');
+                });
+                
+                $result = "Se envió un correo a: ".$usuario->email;        
+                break;
+            case "imprimir":
+                
+                $atencion->posicion = Atencion::whereRaw('numero is not null and lista_id = ?', [$atencion->lista_id])->count()+1;
+                $atencion->save();
+                
+                $lista = Lista::find( $atencion->lista_id);
+                $atencion->numero=$lista->codigo.$atencion->posicion;
+                $atencion->estado_id=1;//estado 1 es en espera
+                $atencion->save();
+                $result = $atencion->numero;
+                
+                break;
+        }
+        
+        
+        
+        if ($modo=="correo"){
+            
         }
         else{
-            $result = "Su codigo de seguridad es: ".$codigo;    
+            
         }
         
         
@@ -104,10 +125,10 @@ class AtencionController extends Controller
             $predecesores = Atencion::whereRaw('estado_id = 1 and posicion < ? and lista_id = ?', [$atencion->posicion,$atencion->lista_id])->count();
             
             
-            Session::put('atencion', $atencion->toArray());
             $array=$atencion->toArray();
             $array['predecesores'] = $predecesores;
             $array['tiempo'] = ($predecesores*5)." minutos";
+            Session::put('atencion', $array);
             return $array;
         }
         
@@ -119,6 +140,14 @@ class AtencionController extends Controller
         header("Allow: GET, POST, OPTIONS");
         $atencion=Session::get('user');
         return Session::get('user');//$request->session()->get('user');
+    }
+    
+    public function obtener_sesion_atencion(Request $request)
+    {
+        header("Access-Control-Allow-Origin: *");
+        header("Allow: GET, POST, OPTIONS");
+        
+        return Session::get('atencion');
     }
     
     

@@ -7,10 +7,11 @@
     <title>Sistema de colas</title>
 
     <link href="{{ URL::asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ URL::asset('assets/css/personalizado.css') }}" rel="stylesheet" type="text/css">
  	<script src="{{ URL::asset('assets/js/jquery-1.11.3.min.js') }}"></script>
     <script src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ URL::asset('assets/js/angular.min.js') }}"></script>
-    <link href="{{ URL::asset('assets/css/personalizado.css') }}" rel="stylesheet" type="text/css">
+    
 	
 <script>
 
@@ -105,7 +106,7 @@ angular.module("colas",[])
 
 <div class = "panel panel-primary">
    <div class = "panel-heading">
-      <h3 class = "panel-title" >Registro de nueva asignacion</h3>
+      <h3 class = "panel-title">Registro de nueva asignacion</h3>
    </div>
    <div class = "panel-body">
 
