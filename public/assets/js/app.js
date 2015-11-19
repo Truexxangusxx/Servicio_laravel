@@ -1,4 +1,4 @@
- var app = angular.module('app', []);
+var app = angular.module('app', []);
 
     
 var generic_controller = function($scope, $http){
@@ -41,4 +41,4 @@ app.controller("first_controller", function($scope, $http,$window){
 		}
 		
 		
-	});
+});

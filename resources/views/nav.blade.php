@@ -69,6 +69,3 @@ $("#error a").text(msg);
 
 </nav>
 
-
-
-
