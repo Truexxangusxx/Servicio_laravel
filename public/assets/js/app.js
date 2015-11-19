@@ -428,8 +428,8 @@ app.controller("empresa_controller", function($scope, $http){
 		
 	});
 
-//lista_controller-----------------------------------------------------------------------------------------------------------------------------
-app.controller("lista_controller", function($scope, $http){
+//listar_lista_controller-----------------------------------------------------------------------------------------------------------------------------
+app.controller("listar_lista_controller", function($scope, $http){
 		
 		$scope.listas = {};
 		

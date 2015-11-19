@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('controlador', 'lista_controller')
+@section('controlador', 'listar_lista_controller')
 @section('title', 'Listar lineas')
 
 @section('content')
