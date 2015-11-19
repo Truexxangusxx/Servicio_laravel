@@ -6,8 +6,7 @@
 
 @section('content')
 
-  <form role="form">
-    
+    <form role="form">
         <select class = "form-control" ng-model="empresa" ng-options="item.id as item.nombre for item in empresas track by item.id" ng-change="listar_listas()">
             <option value="">Seleccione una empresa</option>
         </select><br/>
