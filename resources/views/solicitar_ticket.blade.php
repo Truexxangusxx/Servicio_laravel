@@ -26,3 +26,6 @@
 @stop
 
 
+<div id="impresion">
+<h1></h1>
+</div>

@@ -99,7 +99,7 @@ app.controller("asignar_colaborador", function($scope, $http,$window){
 		        params: $scope.nueva_asignacion
 		    })
         		.success(function(data){
-                    $window.location.href ="/views/listar_asignaciones.html";
+                    $window.location.href ="/app_listar_asignaciones";
         		})
         		.error(function(err){
         			console.log(err);
