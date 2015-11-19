@@ -14,7 +14,7 @@
     <script src="{{ URL::asset('assets/js/app.js') }}"></script>
 </head>
 
-<body ng-controller="first_controller">
+<body ng-controller="@yield('controlador')">
 <div ng-include="'nav'"></div>
 <div class = "container">
 

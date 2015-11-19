@@ -1,6 +1,7 @@
 
 @extends('layouts.master')
 
+@section('controlador', 'asignar_colaborador')
 @section('title', 'Registro de nueva asignacion')
 
 @section('content')

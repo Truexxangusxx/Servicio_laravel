@@ -1,6 +1,7 @@
 
 @extends('layouts.master')
 
+@section('controlador', 'first_controller')
 @section('title', 'Iniciar sesion')
 
 @section('content')
