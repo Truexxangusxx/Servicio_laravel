@@ -26,6 +26,6 @@
 @stop
 
 
-<div id="impresion">
+<div id="impresion" style="display:none;">
 <h1></h1>
 </div>
