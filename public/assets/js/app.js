@@ -141,21 +141,26 @@ app.controller("atencion_controller", function($scope, $http,$window){
         		})
         		.error(function(err){
         			console.log(err);
-        	});
-		
-        $http({
-		        url: "/users",
+        	}).then(function successCallback(response) {
+                $http({
+		        url: "/listas_por_user",
 		        method: "GET",
-		        params: {"colaborador":1}
-		    })
-        		.success(function(data){
-                    $scope.usuarios=data;
-        		})
-        		.error(function(err){
-        			console.log(err);
-        		});
+		        params: {"user_id":$scope.sesion.id}
+		        })
+            		.success(function(data){
+            		    console.log($scope.sesion);
+                        $scope.listas=data;
+            		})
+            		.error(function(err){
+            			error(err);
+            		});
+              }, function errorCallback(response) {
+                
+              });
 		
 		
+	
+	
 		
 		$scope.mostrar_cola=function(){
 		    
@@ -202,24 +207,18 @@ app.controller("atencion_controller", function($scope, $http,$window){
         		.error(function(err){
         			console.log(err);
         			error(err.Message);
-        		});
+        		})
+            		.then(function successCallback(response) {
+                    
+                    $scope.mostrar_cola();
+                    
+                      }, function errorCallback(response) {
+                        
+                      });
+              
 		}
 		
-		$scope.listar_listas=function(){
-		    
-		    $http({
-		        url: "/listas_por_user",
-		        method: "GET",
-		        params: $scope.user
-		    })
-        		.success(function(data){
-        		    console.log(data);
-                    $scope.listas=data;
-        		})
-        		.error(function(err){
-        			alert(err);
-        		});
-		}
+		
 		
 		
 });
@@ -652,3 +651,57 @@ app.controller("ver_estado_controller", function($scope, $http,$window){
 		
 		
 	});
+
+//accesos_controller-----------------------------------------------------------------------------------------------------------------------------
+app.controller("accesos_controller", function($scope, $http,$window){
+	    $scope.user = {};
+		
+		
+		$scope.sesion={};
+		$http({
+		        url: "/usuario_logeado",
+		        method: "GET"
+		    })
+        		.success(function(data){
+                    $scope.sesion=data;
+        		})
+        		.error(function(err){
+        			console.log(err);
+        	});
+		
+        
+		
+		$scope.buscar_user=function(){
+		    
+		    $http({
+		        url: "/buscar_user",
+		        method: "GET",
+		        params: $scope.user
+		    })
+        		.success(function(data){
+                    $scope.user=data;
+        		})
+        		.error(function(err){
+        			alert(err);
+        		});
+		}
+		
+		$scope.actualizar_user=function(){
+		    
+		    $http({
+		        url: "/actualizar_user",
+		        method: "GET",
+		        params: $scope.user
+		    })
+        		.success(function(data){
+                    $scope.user=data;
+                    mensaje('Usuario modificado correctamente');
+        		})
+        		.error(function(err){
+        			alert(err);
+        		});
+		}
+		
+		
+	});
+

@@ -35,9 +35,21 @@ class AtencionController extends Controller
         header("Allow: GET, POST, OPTIONS");
         
         
-        $user_id =$request->input('user_id');
         $lista_id =$request->input('lista_id');
-        $modo =$request->input('modo');
+        if ($request->input('user_id')==null){
+            $user_id=User::whereRaw('email=?', ['generico@mail.com'])->first()->id;
+        }
+        else{
+            $user_id =$request->input('user_id');   
+        }
+        
+        if ($request->input('modo')==null){
+            $modo="imprimir_generico";
+        }
+        else{
+            $modo=$request->input('modo');    
+        }
+        
         
         $usuario = User::find($user_id);
         
@@ -74,6 +86,28 @@ class AtencionController extends Controller
                 $lista = Lista::find( $atencion->lista_id);
                 $atencion->numero=$lista->codigo.$atencion->posicion;
                 $atencion->estado_id=1;//estado 1 es en espera
+                $atencion->save();
+                $result = $atencion->numero;
+                
+                break;
+            case "imprimir_generico":
+                
+                
+                $atencion = Atencion::create(['user_id' => $user_id, "lista_id" => $lista_id
+                ,'modo' => $modo]);
+    
+                $codigo=$atencion->id.date("d").date("i");
+                $atencion->codigo = $codigo;
+                $atencion->save();
+                
+                $atencion->posicion = Atencion::whereRaw('numero is not null and lista_id = ?', [$atencion->lista_id])->count()+1;
+                $atencion->save();
+                
+                $lista = Lista::find( $atencion->lista_id);
+                $atencion->numero=$lista->codigo.$atencion->posicion;
+                $atencion->estado_id=1;//estado 1 es en espera
+                $atencion->nombre=$request->input('nombre');;
+                $atencion->dni=$request->input('dni');;
                 $atencion->save();
                 $result = $atencion->numero;
                 

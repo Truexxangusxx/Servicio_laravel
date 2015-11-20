@@ -90,6 +90,44 @@ class UsersController extends Controller{
             return Session::get('user');
         }
         
+        public function accesos(Request $request)
+        {
+            header("Access-Control-Allow-Origin: *");
+            header("Allow: GET, POST, OPTIONS");
+            
+            return view('accesos');
+        }
+        
+        public function buscar_user(Request $request)
+        {
+            header("Access-Control-Allow-Origin: *");
+            header("Allow: GET, POST, OPTIONS");
+            
+            $email =$request->input('email');
+            
+            $user = User::whereRaw('email=?', [$email])->first();
+            
+            return $user;
+        }
+    
+        public function actualizar_user(Request $request)
+        {
+            header("Access-Control-Allow-Origin: *");
+            header("Allow: GET, POST, OPTIONS");
+            
+            $email =$request->input('email');
+            $name =$request->input('name');
+            $colaborador =$request->input('colaborador');
+            $admin =$request->input('admin');
+            
+            $user = User::whereRaw('email=?', [$email])->first();
+            $user->name=$name;
+            $user->colaborador=$colaborador;
+            $user->admin=$admin;
+            $user->save();
+            
+            return $user;
+        }
     
 }
 

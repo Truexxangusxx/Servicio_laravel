@@ -1,9 +1,10 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Model;
 use course\Estado;
   
-class EstadoTableSeeder extends Seeder {
+class EstadosTableSeeder extends Seeder {
     public function run() {
         
         Estado::truncate(); 

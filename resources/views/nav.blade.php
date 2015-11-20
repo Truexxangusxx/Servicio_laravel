@@ -4,13 +4,22 @@ function mensaje(msg){
 $("#error").hide();
 $("#mensaje a").text(msg);
     $("#mensaje").fadeIn('slow');
+$("#mensaje a").click(function (e) {
+        $("#mensaje").hide();
+});
 }
 
 function error(msg){
 $("#mensaje").hide();
 $("#error a").text(msg);
     $("#error").fadeIn('slow');
+$("#error a").click(function (e) {
+        $("#error").hide();
+    });
 }
+
+
+
 </script>
 
 <style>
@@ -47,7 +56,7 @@ $("#error a").text(msg);
          <li ng-if="sesion.name!=Undefined"><a href = "cerrar_sesion">cerrar sesion (@{{sesion.name}})</a></li>
          
          
-         <li class = "dropdown">
+         <li ng-if="sesion.admin==1" class = "dropdown">
             <a href = "#" id = "navbarDrop1" class = "dropdown-toggle" data-toggle = "dropdown">
                Mantenimientos
                <b class = "caret"></b>
@@ -57,12 +66,13 @@ $("#error a").text(msg);
                <li><a href = "app_listar_listas" tabindex = "-1">listas</a></li>
             </ul>
          </li>
-         
-         <li><a href = "app_listar_asignaciones">Asignacion</a></li>
-         <li><a href = "app_atender_lista">Atencion</a></li>
-         <li><a href = "#">Accesos</a></li>
-         <li><a href = "app_solicitar_ticket">Solicitar ticket</a></li>
-         <li><a href = "app_ver_estado">Estado de atencion</a></li>
+        
+        
+        <li ng-if="sesion.admin==1"><a href = "app_listar_asignaciones">Asignacion</a></li>
+        <li ng-if="sesion.colaborador==1 || sesion.admin==1"><a href = "app_atender_lista">Atencion</a></li>
+        <li ng-if="sesion.admin==1"><a href = "accesos">Accesos</a></li>
+        <li ng-if="sesion.name!=Undefined"><a href = "app_solicitar_ticket">Solicitar ticket</a></li>
+        <li ng-if="sesion.name!=Undefined"><a href = "app_ver_estado">Estado de atencion</a></li>
 
       </ul>
    </div>

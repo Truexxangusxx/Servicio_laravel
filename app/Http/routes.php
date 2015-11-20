@@ -70,7 +70,7 @@ Route::get('demo', function () {
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('disparar_ticket');
 });
 
 Route::get('prueba', function () {
@@ -128,3 +128,8 @@ Route::get('cerrar_sesion', 'UsersController@cerrar_sesion');
 
 Route::get('usuario_logeado', 'UsersController@usuario_logeado');
 
+Route::get('accesos', 'UsersController@accesos');
+
+Route::get('buscar_user', 'UsersController@buscar_user');
+
+Route::get('actualizar_user', 'UsersController@actualizar_user');

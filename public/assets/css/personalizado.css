@@ -11,8 +11,8 @@ html{
 
 
 #footer {
-position: relative;
-bottom:0px;
+  position: relative;
+  bottom:0px;
   height:75px;
   background: #D5E1FF;
   border-top: 1px solid #93A3FB;
@@ -22,7 +22,7 @@ bottom:0px;
 }
 
 .container {
-    position: relative;
+  position: relative;
   width: auto;
   max-width: 800px;
   padding: 0 15px;
@@ -39,6 +39,7 @@ bottom:0px;
 .navbar-default .navbar-toggle {
     border-color: #D5E1FF;
 }
+
 
 
 div .panel

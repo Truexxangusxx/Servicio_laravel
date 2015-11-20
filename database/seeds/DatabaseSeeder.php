@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use course\User;
+use course\Estado;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,7 +16,30 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-         $this->call(EstadosTableSeeder::class);
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        Estado::truncate(); 
+        Estado::create( [
+            'nombre' => 'En espera' ,
+        ] );
+        Estado::create( [
+            'nombre' => 'Atendido' ,
+        ] );
+        Estado::create( [
+            'nombre' => 'Ausente' ,
+        ] );
+         
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++         
+        User::create( [
+            'name' => 'generico' ,
+            'email' => 'generico@mail.com'
+        ] );
+        User::create( [
+            'name' => 'admin' ,
+            'email' => 'admin@mail.com',
+            'password' => '123'
+        ] );
+
+
 
         Model::reguard();
     }
