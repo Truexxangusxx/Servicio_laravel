@@ -1,4 +1,7 @@
-var app = angular.module('app', []);
+var app = angular.module('app', [], function($interpolateProvider) {
+        $interpolateProvider.startSymbol('<%');
+        $interpolateProvider.endSymbol('%>');
+    });
 
     
 var generic_controller = function($scope, $http){
@@ -31,8 +34,16 @@ app.controller("first_controller", function($scope, $http,$window){
 		        params: $scope.user
 		   })
         		.success(function(data){
-        		    console.log(data);
-                    $window.location.href ="/app_solicitar_ticket";
+        		    //console.log(data);
+        		    if(data == "")
+        		    {
+        		        $window.location.href ="/app_iniciar_sesion";
+        		    }
+        		    else{
+        		          
+        		        $window.location.href ="/app_solicitar_ticket";
+        		    }
+                    
         		})
         		.error(function(err){
         			error(err.Message);
@@ -388,7 +399,22 @@ app.controller("asignacion_controller", function($scope, $http,$window){
         			console.log(err);
         		});
         		
-		
+		$scope.eliminar_asignacion=function(id){
+		    alert("aksdjaskdjas");
+		    /*
+		    $http({
+		        url: "/eliminar_asignacion",
+		        method: "GET",
+		        params: {"id":id}
+		    })
+        		.success(function(data){
+                    $scope.asignacions=data;
+        		})
+        		.error(function(err){
+        			error(err);
+        		});
+        		*/
+		}
 		
 	});
 

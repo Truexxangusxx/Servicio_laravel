@@ -8,7 +8,8 @@ class Asignacion extends Model
 {
     protected $fillable = [
         'user_id',
-        'lista_id'
+        'lista_id',
+        'ventanilla'
     ];
     
     

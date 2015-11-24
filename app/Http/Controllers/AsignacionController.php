@@ -36,8 +36,9 @@ class AsignacionController extends Controller
         
         $user_id =$request->input('user_id');
         $lista_id =$request->input('lista_id');
+        $ventanilla =$request->input('ventanilla');
         
-        $asignacion = Asignacion::create(['lista_id' => $lista_id, "user_id" => $user_id]);
+        $asignacion = Asignacion::create(['lista_id' => $lista_id, "user_id" => $user_id, "ventanilla" => $ventanilla]);
         
         return $asignacion;
     }
@@ -61,6 +62,19 @@ class AsignacionController extends Controller
         
          
         return $array;
+    }
+    
+    public function eliminar_asignacion(Request $request)
+    {
+        header("Access-Control-Allow-Origin: *");
+        header("Allow: GET, POST, OPTIONS");
+        
+        $id =$request->input('id');
+        Asignacion::destroy($id);
+        
+        $asignacions = Asignacion::all();
+         
+        return $asignacions->toArray();
     }
     /**
      * Store a newly created resource in storage.

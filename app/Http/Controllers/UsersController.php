@@ -6,6 +6,7 @@ use course\Http\Requests;
 use course\Http\Controllers\Controller;
 use course\User;
 use Session;
+use Illuminate\Support\Facades\Response;
 
 class UsersController extends Controller{
 
@@ -57,7 +58,7 @@ class UsersController extends Controller{
             return $user;
         }
         
-    
+        
         public function iniciar_sesion(Request $request)
         {
             header("Access-Control-Allow-Origin: *");
@@ -70,6 +71,7 @@ class UsersController extends Controller{
             Session::put('user', $user);
             
             return $user;
+            
         }
         
         public function cerrar_sesion(Request $request)
@@ -89,6 +91,39 @@ class UsersController extends Controller{
             
             return Session::get('user');
         }
+        
+        public function usuario_logeado_xml(Request $request)
+        {
+            header("Access-Control-Allow-Origin: *");
+            header("Allow: GET, POST, OPTIONS");
+            
+            $user = Session::get('user');
+
+            $xml = new \XMLWriter();
+            $xml->openMemory();
+            $xml->startDocument();
+            $xml->startElement('user');
+            
+            $xml->startElement('data');
+                
+                foreach ($user as $nombre => $valor) {
+                    $xml->writeAttribute("$nombre", $valor);
+                }
+
+                $xml->writeAttribute('id', $user->id);
+                $xml->writeAttribute('name', $user->name);
+                $xml->writeAttribute('email', $user->email);
+                $xml->endElement();
+          
+            $xml->endElement();
+            $xml->endDocument();
+        
+            $content = $xml->outputMemory();
+            $xml = null;
+            
+            return response($content)->header('Content-Type', 'text/xml');
+        }
+        
         
         public function accesos(Request $request)
         {

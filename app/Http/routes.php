@@ -128,8 +128,12 @@ Route::get('cerrar_sesion', 'UsersController@cerrar_sesion');
 
 Route::get('usuario_logeado', 'UsersController@usuario_logeado');
 
+Route::get('usuario_logeado_xml', 'UsersController@usuario_logeado_xml');
+
 Route::get('accesos', 'UsersController@accesos');
 
 Route::get('buscar_user', 'UsersController@buscar_user');
 
 Route::get('actualizar_user', 'UsersController@actualizar_user');
+
+Route::get('eliminar_asignacion', 'AsignacionController@eliminar_asignacion');

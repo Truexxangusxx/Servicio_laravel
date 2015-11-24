@@ -11,7 +11,7 @@ html{
 
 
 #footer {
-  position: relative;
+  /*position: relative;*/
   bottom:0px;
   height:75px;
   background: #D5E1FF;
@@ -22,7 +22,7 @@ html{
 }
 
 .container {
-  position: relative;
+  /*position: relative;*/
   width: auto;
   max-width: 800px;
   padding: 0 15px;
@@ -61,7 +61,7 @@ div .panel
     background: #D5E1FF;
     border-bottom: 1px solid #93A3FB;
     color: #001028;
-    height: 10%;
+    /*min-height: 10%;*/
     margin-bottom:0px;
 }
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
