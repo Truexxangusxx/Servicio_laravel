@@ -93,7 +93,7 @@ class UsersController extends Controller{
             return Session::get('user');
         }
         
-        public function usuario_logeado_xml(Request $request)
+        public function ventanillas_xml(Request $request)
         {
             header("Access-Control-Allow-Origin: *");
             header("Allow: GET, POST, OPTIONS");

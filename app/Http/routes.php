@@ -128,7 +128,7 @@ Route::get('cerrar_sesion', 'UsersController@cerrar_sesion');
 
 Route::get('usuario_logeado', 'UsersController@usuario_logeado');
 
-Route::get('usuario_logeado_xml', 'UsersController@usuario_logeado_xml');
+Route::get('ventanillas_xml', 'UsersController@ventanillas_xml');
 
 Route::get('accesos', 'UsersController@accesos');
 
