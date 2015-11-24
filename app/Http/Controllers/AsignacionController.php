@@ -70,7 +70,8 @@ class AsignacionController extends Controller
         header("Allow: GET, POST, OPTIONS");
         
         $id =$request->input('id');
-        Asignacion::destroy($id);
+        $asignacion=Asignacion::find($id);
+        $asignacion->delete();
         
         $asignacions = Asignacion::all();
          

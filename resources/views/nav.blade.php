@@ -53,7 +53,7 @@ $("#error a").click(function (e) {
                <li><a href = "app_crear_user" tabindex = "-1">Registrar usuario</a></li>
             </ul>
          </li>
-         <li ng-if="sesion.name!=Undefined"><a href = "cerrar_sesion">cerrar sesion (@{{sesion.name}})</a></li>
+         <li ng-if="sesion.name!=Undefined"><a href = "cerrar_sesion">cerrar sesion (@[[sesion.name]])</a></li>
          
          
          <li ng-if="sesion.admin==1" class = "dropdown">

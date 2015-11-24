@@ -20,9 +20,9 @@
        <tbody>
          
          <tr ng-repeat="lista in listas">
-            <td>@{{lista.id}}</td>
-            <td>@{{lista.nombre}}</td>
-            <td>@{{lista.empresa.nombre}}</td>
+            <td>[[lista.id]]</td>
+            <td>[[lista.nombre]]</td>
+            <td>[[lista.empresa.nombre]]</td>
         </tr>
          
        </tbody>

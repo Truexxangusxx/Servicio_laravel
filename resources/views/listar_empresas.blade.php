@@ -20,9 +20,9 @@
        <tbody>
          
          <tr ng-repeat="empresa in empresas">
-            <td>@{{empresa.id}}</td>
-            <td>@{{empresa.nombre}}</td>
-            <td>@{{empresa.codigo}}</td>
+            <td>[[empresa.id]]</td>
+            <td>[[empresa.nombre]]</td>
+            <td>[[empresa.codigo]]</td>
         </tr>
          
        </tbody>

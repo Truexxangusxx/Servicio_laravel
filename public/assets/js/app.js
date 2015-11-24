@@ -1,7 +1,7 @@
 var app = angular.module('app', [], function($interpolateProvider) {
-        $interpolateProvider.startSymbol('<%');
-        $interpolateProvider.endSymbol('%>');
-    });
+    $interpolateProvider.startSymbol('[[');
+    $interpolateProvider.endSymbol(']]');
+});
 
     
 var generic_controller = function($scope, $http){
@@ -174,7 +174,7 @@ app.controller("atencion_controller", function($scope, $http,$window){
 	
 		
 		$scope.mostrar_cola=function(){
-		    
+		    $scope.user.user_id=$scope.sesion.id
 		    $http({
 		        url: "/obtener_lista",
 		        method: "GET",
@@ -400,12 +400,11 @@ app.controller("asignacion_controller", function($scope, $http,$window){
         		});
         		
 		$scope.eliminar_asignacion=function(id){
-		    alert("aksdjaskdjas");
-		    /*
+		    
 		    $http({
 		        url: "/eliminar_asignacion",
 		        method: "GET",
-		        params: {"id":id}
+		        params: {"id":parseInt(id)}
 		    })
         		.success(function(data){
                     $scope.asignacions=data;
@@ -413,7 +412,7 @@ app.controller("asignacion_controller", function($scope, $http,$window){
         		.error(function(err){
         			error(err);
         		});
-        		*/
+        	
 		}
 		
 	});

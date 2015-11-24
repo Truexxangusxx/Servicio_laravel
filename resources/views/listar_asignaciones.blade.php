@@ -23,12 +23,12 @@
        <tbody>
          
          <tr ng-repeat="asignacion in asignacions">
-            <td>@{{asignacion.id}}</td>
-            <td>@{{asignacion.user.name}}</td>
-            <td>@{{asignacion.lista.nombre}}</td>
-            <td>@{{asignacion.lista.empresa.nombre}}</td>
-            <td>@{{asignacion.ventanilla}}</td>
-            <td><a href = "#" class = "btn btn-default" role = "button" ng-click="eliminar_asignacion(<%asignacion.id%>)">eliminar</a></td>
+            <td>[[asignacion.id]]</td>
+            <td>[[asignacion.user.name]]</td>
+            <td>[[asignacion.lista.nombre]]</td>
+            <td>[[asignacion.lista.empresa.nombre]]</td>
+            <td>[[asignacion.ventanilla]]</td>
+            <td><a href = "#" class = "btn btn-default" role = "button" ng-click="eliminar_asignacion([[asignacion.id]])">eliminar</a></td>
         </tr>
          
        </tbody>

@@ -12,8 +12,8 @@
         
         <div>
         <input type="hidden"  ng-model="user.id" class = "form-control" />
-        <h4>Nombre: <span class = "label label-default">@{{user.name}}</span></h4>
-        <h4>Correo: <span class = "label label-default">@{{user.email}}</span></h4>
+        <h4>Nombre: <span class = "label label-default">[[user.name]]</span></h4>
+        <h4>Correo: <span class = "label label-default">[[user.email]]</span></h4>
         <div class = "checkbox">
           <label><input type="checkbox" ng-model="user.colaborador" ng-true-value="'1'" ng-false-value="'0'"> Colaborador</label>
         </div>

@@ -11,10 +11,10 @@
         <a href = "#" class = "btn btn-default" role = "button" ng-click="generar_ticket()">Generar ticket</a>
         
         <div>
-        <h4>Numero: <span class = "label label-default">@{{atencion.numero}}</span></h4>
-        <h4>Linea: <span class = "label label-default">@{{atencion.lista.empresa.nombre}}-@{{atencion.lista.nombre}}</span></h4>
-        <h4>Predecesores: <span class = "label label-default">@{{atencion.predecesores}}</span></h4>
-        <h4>Tiempo estimado: <span class = "label label-default">@{{atencion.tiempo}}</span></h4>
+        <h4>Numero: <span class = "label label-default">[[atencion.numero]]</span></h4>
+        <h4>Linea: <span class = "label label-default">[[atencion.lista.empresa.nombre]]-[[atencion.lista.nombre]]</span></h4>
+        <h4>Predecesores: <span class = "label label-default">[[atencion.predecesores]]</span></h4>
+        <h4>Tiempo estimado: <span class = "label label-default">[[atencion.tiempo]]</span></h4>
         
         <br/>
         <a href = "app_solicitar_ticket" class = "btn btn-default" role = "button">Nuevo</a>

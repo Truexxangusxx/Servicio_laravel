@@ -6,6 +6,7 @@ use course\Http\Requests;
 use course\Http\Controllers\Controller;
 use course\User;
 use Session;
+use DB;
 use Illuminate\Support\Facades\Response;
 
 class UsersController extends Controller{
@@ -99,6 +100,7 @@ class UsersController extends Controller{
             
             $user = Session::get('user');
 
+/*
             $xml = new \XMLWriter();
             $xml->openMemory();
             $xml->startDocument();
@@ -122,6 +124,35 @@ class UsersController extends Controller{
             $xml = null;
             
             return response($content)->header('Content-Type', 'text/xml');
+            */
+            
+            $data= DB::table('atencions')
+            ->join('asignacions', function ($join) {
+                $join->on('atencions.colaborador_id', '=', 'asignacions.user_id');
+            })
+            ->whereRaw('atencions.estado_id=1 and atencions.colaborador_id is not null and atencions.lista_id = asignacions.lista_id',[])
+            ->get();
+        
+            $xml = new \XMLWriter();
+            $xml->openMemory();
+            $xml->startDocument();
+            $xml->startElement('ventanillas');
+                
+                foreach ($data as $row) {
+                    $xml->startElement('data');
+                    $xml->writeAttribute("ventanilla", $row->ventanilla);
+                    $xml->writeAttribute("numero", $row->numero);
+                    $xml->endElement();
+                }
+          
+            $xml->endElement();
+            $xml->endDocument();
+        
+            $content = $xml->outputMemory();
+            $xml = null;
+            
+            return response($content)->header('Content-Type', 'text/xml');
+        
         }
         
         
