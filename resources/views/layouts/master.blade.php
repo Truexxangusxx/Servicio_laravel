@@ -12,6 +12,7 @@
     <script src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ URL::asset('assets/js/angular.min.js') }}"></script>
     <script src="{{ URL::asset('assets/js/app.js') }}"></script>
+    <script src="{{ URL::asset('assets/js/validator.min.js') }}"></script>
 </head>
 
 <body ng-controller="@yield('controlador')">

@@ -103,19 +103,30 @@ app.controller("asignar_colaborador", function($scope, $http,$window){
 		
 		
 		$scope.registrar_asignacion=function(){
-		    
-		    $http({
-		        url: "/asignacions/create",
-		        method: "GET",
-		        params: $scope.nueva_asignacion
-		    })
-        		.success(function(data){
-                    $window.location.href ="/app_listar_asignaciones";
-        		})
-        		.error(function(err){
-        			console.log(err);
-        			error(err.Message);
-        		});
+		    $('#myForm').validator('validate');
+		    if ($('.has-error').length){
+		        error('Complete correctamente los campos');
+		    }
+		    else{
+    		    $http({
+    		        url: "/asignacions/create",
+    		        method: "GET",
+    		        params: $scope.nueva_asignacion
+    		    })
+            		.success(function(data){
+                        if (data.error){
+                            error(data.msg);
+                        }
+                        else{
+                            $window.location.href ="/app_listar_asignaciones";    
+                        }
+                        
+            		})
+            		.error(function(err){
+            			console.log(err);
+            			error(err.Message);
+            		});
+		    }
 		}
 		
 		$scope.listar_listas=function(){
@@ -235,8 +246,8 @@ app.controller("atencion_controller", function($scope, $http,$window){
 });
 
 
-//empresa_controller------------------------------------------------------------------------------------------------------------------------------
-app.controller("empresa_controller", function($scope, $http,$window){
+//crear_empresa_controller------------------------------------------------------------------------------------------------------------------------------
+app.controller("crear_empresa_controller", function($scope, $http,$window){
 		$scope.empresa = {};
 		$scope.empresas = {};
 		
@@ -268,18 +279,23 @@ app.controller("empresa_controller", function($scope, $http,$window){
 		
 		
 		$scope.registrar_empresa=function(){
-		    
-		    $http({
-		        url: "/empresas/create",
-		        method: "GET",
-		        params: $scope.empresa
-		    })
-        		.success(function(data){
-                    $window.location.href ="/app_listar_empresas";
-        		})
-        		.error(function(err){
-        			error(err.Message);
-        		});
+		    $('#myForm').validator('validate');
+		    if ($('.has-error').length){
+		        error('Complete correctamente los campos');
+		    }
+		    else{
+    		    $http({
+    		        url: "/empresas/create",
+    		        method: "GET",
+    		        params: $scope.empresa
+    		    })
+            		.success(function(data){
+                        $window.location.href ="/app_listar_empresas";
+            		})
+            		.error(function(err){
+            			error(err.Message);
+            		});
+		    }
 		}
 		
 	});
@@ -316,18 +332,23 @@ app.controller("lista_controller", function($scope, $http,$window){
 		
 		
 		$scope.registrar_lista=function(){
-		    
-		    $http({
-		        url: "/listas/create",
-		        method: "GET",
-		        params: $scope.nueva_lista
-		    })
-        		.success(function(data){
-                    $window.location.href ="/app_listar_listas";
-        		})
-        		.error(function(err){
-        			error(err.Message);
-        		});
+		    $('#myForm').validator('validate');
+		    if ($('.has-error').length){
+		        error('Complete correctamente los campos');
+		    }
+		    else{
+    		    $http({
+    		        url: "/listas/create",
+    		        method: "GET",
+    		        params: $scope.nueva_lista
+    		    })
+            		.success(function(data){
+                        $window.location.href ="/app_listar_listas";
+            		})
+            		.error(function(err){
+            			error(err.Message);
+            		});
+		    }
 		}
 		
 });
@@ -352,18 +373,28 @@ app.controller("crear_user_controller", function($scope, $http){
         
 		
 		$scope.registrar_usuario=function(){
-		   
-		   $http({
+		    $('#myForm').validator('validate');
+		    if ($('.has-error').length){
+		        error('Complete correctamente los campos');
+		    }
+		    else{
+		        $http({
 		        url: "/users/create",
 		        method: "GET",
 		        params: $scope.nuevo_usuario
-		    })
-        		.success(function(data){
-                    mensaje('Usuario registrado correctamente, revise su correo para activar su cuenta');
-        		})
-        		.error(function(err){
-        			error(err.Message);
-        	});
+    		    })
+            		.success(function(data){
+                        if (data.error){
+                            error(data.msg);
+                        }
+                        else{
+                            mensaje(data.msg);
+                        }
+            		})
+            		.error(function(err){
+            			error(err.Message);
+            	});
+		    }
 		   
 		}
 		

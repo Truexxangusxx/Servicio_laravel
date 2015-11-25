@@ -48,15 +48,32 @@ class UsersController extends Controller{
         {
             header("Access-Control-Allow-Origin: *");
             header("Allow: GET, POST, OPTIONS");
+            $error=false;
+            $msg="";
             
-            $nombre =$request->input('nombre');
-            $dni =$request->input('dni');
-            $email =$request->input('email');
-            $password =$request->input('password');
+            try {
+                $nombre =$request->input('nombre');
+                $dni =$request->input('dni');
+                $email =$request->input('email');
+                $password =$request->input('password');
+                
+                if(User::whereRaw('email=?', [$email])->count()>0){
+                    $user = null;
+                    $error=true;
+                    $msg="Este correo ya ha sido registrado";    
+                }
+                else{
+                    $user = User::create(['name' => $nombre, "dni" => $dni,'email' => $email, "password" => $password]);
+                    $msg="Usuario registrado correctamente";    
+                }
+                
+            } catch(\Exception $e) {
+                $user = null;
+                $error=true;
+                $msg=$e->getMessage();
+            }
             
-            $user = User::create(['name' => $nombre, "dni" => $dni,'email' => $email, "password" => $password]);
-            
-            return $user;
+            return ["user"=>$user,"error"=>$error,"msg"=>$msg];
         }
         
         
@@ -90,7 +107,7 @@ class UsersController extends Controller{
             header("Access-Control-Allow-Origin: *");
             header("Allow: GET, POST, OPTIONS");
             
-            return Session::get('user');
+            return response(Session::get('user'));
         }
         
         public function ventanillas_xml(Request $request)

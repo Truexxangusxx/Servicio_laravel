@@ -34,13 +34,45 @@ class AsignacionController extends Controller
         header("Access-Control-Allow-Origin: *");
         header("Allow: GET, POST, OPTIONS");
         
+        $error=false;
+        $msg="";
         $user_id =$request->input('user_id');
         $lista_id =$request->input('lista_id');
         $ventanilla =$request->input('ventanilla');
+
+
+
+        $ventanilla_asignada=Asignacion::whereRaw('user_id=? and ventanilla is not null', [$user_id])->count();
+        $ventanilla_diferente=Asignacion::whereRaw('user_id=? and ventanilla = ?', [$user_id, $ventanilla])->count();
+
+        if ($ventanilla_asignada>0){
+            if ($ventanilla_diferente>0){
+                $error=false;
+            }
+            else{
+                $error=true;
+                $msg="El usuario no se puede asignar a dos ventanillas distintas";
+            }
+        }
+        else{
+            $error=false;
+        }
         
-        $asignacion = Asignacion::create(['lista_id' => $lista_id, "user_id" => $user_id, "ventanilla" => $ventanilla]);
+        if (Asignacion::whereRaw('user_id=? and lista_id=?', [$user_id,$lista_id])->count()>0)
+        {
+            $error=true;
+            $msg="No se puede asignar el colaborador a la misma linea dos veces";
+        }
         
-        return $asignacion;
+        if ($error==false){
+            $asignacion = Asignacion::create(['lista_id' => $lista_id, "user_id" => $user_id, "ventanilla" => $ventanilla]);
+        }
+        else{
+            $asignacion = null;
+        }
+        
+        
+        return ["asignacion"=>$asignacion,"error"=>$error,"msg"=>$msg];
     }
 
 
