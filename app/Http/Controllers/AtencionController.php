@@ -194,8 +194,10 @@ class AtencionController extends Controller
         $user_id=$request->input('user_id');
         
         $atenciones = Atencion::whereRaw('lista_id=? and estado_id=1 and (colaborador_id is null or colaborador_id = ?)',[$lista_id,$user_id])->take(4)->get();
-        $atenciones[0]->colaborador_id=$user_id;
-        $atenciones[0]->save();
+        if (count($atenciones)>0){
+            $atenciones[0]->colaborador_id=$user_id;
+            $atenciones[0]->save();
+        }
         
         return $atenciones;
     }
