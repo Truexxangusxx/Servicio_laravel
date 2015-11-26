@@ -129,12 +129,15 @@ class UsersController extends Controller{
             $xml->startDocument();
             $xml->startElement('ventanillas');
                 
+                $cont=1;
                 foreach ($data as $row) {
                     $xml->startElement('data');
                     $xml->writeAttribute("ventanilla", $row->ventanilla);
                     $xml->writeAttribute("numero", $row->numero);
-                    $xml->writeAttribute("id", $row->id);
+                    $xml->writeAttribute("concatenado", $row->ventanilla.$row->numero);
+                    $xml->writeAttribute("id", $cont);
                     $xml->endElement();
+                    $cont=$cont+1;
                 }
           
             $xml->endElement();
