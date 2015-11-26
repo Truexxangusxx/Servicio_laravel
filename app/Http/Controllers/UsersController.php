@@ -117,32 +117,6 @@ class UsersController extends Controller{
             
             $user = Session::get('user');
 
-/*
-            $xml = new \XMLWriter();
-            $xml->openMemory();
-            $xml->startDocument();
-            $xml->startElement('user');
-            
-            $xml->startElement('data');
-                
-                foreach ($user as $nombre => $valor) {
-                    $xml->writeAttribute("$nombre", $valor);
-                }
-
-                $xml->writeAttribute('id', $user->id);
-                $xml->writeAttribute('name', $user->name);
-                $xml->writeAttribute('email', $user->email);
-                $xml->endElement();
-          
-            $xml->endElement();
-            $xml->endDocument();
-        
-            $content = $xml->outputMemory();
-            $xml = null;
-            
-            return response($content)->header('Content-Type', 'text/xml');
-            */
-            
             $data= DB::table('atencions')
             ->join('asignacions', function ($join) {
                 $join->on('atencions.colaborador_id', '=', 'asignacions.user_id');
@@ -159,6 +133,7 @@ class UsersController extends Controller{
                     $xml->startElement('data');
                     $xml->writeAttribute("ventanilla", $row->ventanilla);
                     $xml->writeAttribute("numero", $row->numero);
+                    $xml->writeAttribute("id", $row->id);
                     $xml->endElement();
                 }
           
