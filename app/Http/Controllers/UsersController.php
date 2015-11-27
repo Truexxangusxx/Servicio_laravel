@@ -122,6 +122,7 @@ class UsersController extends Controller{
                 $join->on('atencions.colaborador_id', '=', 'asignacions.user_id');
             })
             ->whereRaw('atencions.estado_id=1 and atencions.colaborador_id is not null and atencions.lista_id = asignacions.lista_id',[])
+            ->orderBy('atencions.updated_at','desc')
             ->get();
         
             $xml = new \XMLWriter();
@@ -134,8 +135,10 @@ class UsersController extends Controller{
                     $xml->startElement('data');
                     $xml->writeAttribute("ventanilla", $row->ventanilla);
                     $xml->writeAttribute("numero", $row->numero);
-                    $xml->writeAttribute("concatenado", $row->ventanilla.$row->numero);
+                    $xml->writeAttribute("concatenado", $row->ventanilla."-".$row->numero);
+                    $xml->writeAttribute("actualizado", $row->updated_at);
                     $xml->writeAttribute("id", $cont);
+                    $xml->writeAttribute("estado", $row->estado_id);
                     $xml->endElement();
                     $cont=$cont+1;
                 }

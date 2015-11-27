@@ -152,6 +152,14 @@ app.controller("atencion_controller", function($scope, $http,$window){
 		$scope.atencions = {};
 		$scope.listas = {};
 		$scope.usuarios = {};
+		$scope.user = {};
+		
+		
+		function temporizador(){
+    		$scope.mostrar_cola();
+        }
+        var timer = setInterval(temporizador, 5000);
+		
 		
 		$scope.sesion={};
 		$http({
@@ -172,6 +180,7 @@ app.controller("atencion_controller", function($scope, $http,$window){
             		.success(function(data){
             		    console.log($scope.sesion);
                         $scope.listas=data;
+                        $scope.user.lista_id = $scope.listas[0].id;
             		})
             		.error(function(err){
             			error(err);
@@ -179,8 +188,6 @@ app.controller("atencion_controller", function($scope, $http,$window){
               }, function errorCallback(response) {
                 
               });
-		
-		
 	
 	
 		
