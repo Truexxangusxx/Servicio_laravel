@@ -158,7 +158,7 @@ app.controller("atencion_controller", function($scope, $http,$window){
 		function temporizador(){
     		$scope.mostrar_cola();
         }
-        var timer = setInterval(temporizador, 5000);
+        var timer = setInterval(temporizador, 10000);
 		
 		
 		$scope.sesion={};
@@ -181,6 +181,7 @@ app.controller("atencion_controller", function($scope, $http,$window){
             		    console.log($scope.sesion);
                         $scope.listas=data;
                         $scope.user.lista_id = $scope.listas[0].id;
+                        $scope.mostrar_cola();
             		})
             		.error(function(err){
             			error(err);
@@ -225,27 +226,48 @@ app.controller("atencion_controller", function($scope, $http,$window){
 		
 		$scope.atender_atencion=function(estado){
 		    
-		    $http({
+		    if ($scope.atencions[0].colaborador_id==null){
+		        error('El cliente no le esta asignado');
+		    }
+		    else{
+		        $http({
 		        url: "/atender_atencion",
 		        method: "GET",
 		        params: {"estado_id":estado,"id":$scope.atencions[0].id}
-		    })
-        		.success(function(data){
+    		    })
+            	.success(function(data){
                     mensaje("atendido!!!, refresca la pagina");
-        		})
+            	})
+            	.error(function(err){
+            		console.log(err);
+            			error(err.Message);
+            		})
+                	.then(function successCallback(response) {
+        
+                        $scope.mostrar_cola();
+                        
+                          }, function errorCallback(response) {
+                            
+                          });    
+		    }
+		}
+		
+		
+		$scope.asignar_atencion=function(){
+		    
+		        $http({
+		        url: "/asignar_atencion",
+		        method: "GET",
+		        params: $scope.user
+    		    })
+            	.success(function(data){
+                    $scope.mostrar_cola();
+            	})
         		.error(function(err){
         			console.log(err);
-        			error(err.Message);
-        		})
-            		.then(function successCallback(response) {
-                    
-                    $scope.mostrar_cola();
-                    
-                      }, function errorCallback(response) {
-                        
-                      });
+        		});    
               
-		}
+		    }
 		
 		
 		

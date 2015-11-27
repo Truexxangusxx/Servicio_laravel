@@ -137,3 +137,5 @@ Route::get('buscar_user', 'UsersController@buscar_user');
 Route::get('actualizar_user', 'UsersController@actualizar_user');
 
 Route::get('eliminar_asignacion', 'AsignacionController@eliminar_asignacion');
+
+Route::get('asignar_atencion', 'AtencionController@asignar_atencion');
