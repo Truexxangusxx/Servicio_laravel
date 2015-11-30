@@ -12,6 +12,10 @@
 */
 
 
+Route::get('app_reporte', function () {
+    return view('reporte');
+});
+
 Route::get('app_asignar_colaborador', function () {
     return view('asignar_colaborador');
 });
@@ -139,3 +143,5 @@ Route::get('actualizar_user', 'UsersController@actualizar_user');
 Route::get('eliminar_asignacion', 'AsignacionController@eliminar_asignacion');
 
 Route::get('asignar_atencion', 'AtencionController@asignar_atencion');
+
+Route::get('reporte_1', 'AtencionController@reporte_1');

@@ -11,6 +11,9 @@ use course\Atencion;
 use course\Lista;
 use course\Asignacion;
 use Session;
+use Carbon\Carbon;
+use DateTime;
+use DB;
 
 class AtencionController extends Controller
 {
@@ -85,6 +88,7 @@ class AtencionController extends Controller
                 
                 $lista = Lista::find( $atencion->lista_id);
                 $atencion->numero=$lista->codigo.$atencion->posicion;
+                $atencion->fecha_generado=Carbon::now();
                 $atencion->estado_id=1;//estado 1 es en espera
                 $atencion->save();
                 $result = $atencion->numero;
@@ -92,10 +96,6 @@ class AtencionController extends Controller
                 break;
             case "imprimir_generico":
                 
-                
-                $atencion = Atencion::create(['user_id' => $user_id, "lista_id" => $lista_id
-                ,'modo' => $modo]);
-    
                 $codigo=$atencion->id.date("d").date("i");
                 $atencion->codigo = $codigo;
                 $atencion->save();
@@ -105,6 +105,7 @@ class AtencionController extends Controller
                 
                 $lista = Lista::find( $atencion->lista_id);
                 $atencion->numero=$lista->codigo.$atencion->posicion;
+                $atencion->fecha_generado=Carbon::now();
                 $atencion->estado_id=1;//estado 1 es en espera
                 $atencion->nombre=$request->input('nombre');;
                 $atencion->dni=$request->input('dni');;
@@ -150,6 +151,7 @@ class AtencionController extends Controller
                 
                 $lista = Lista::find( $atencion->lista_id);
                 $atencion->numero=$lista->codigo.$atencion->posicion;
+                $atencion->fecha_generado=Carbon::now();
                 $atencion->estado_id=1;//estado 1 es en espera
                 $atencion->save();
                 
@@ -213,6 +215,7 @@ class AtencionController extends Controller
         $atenciones = Atencion::whereRaw('lista_id=? and estado_id=1 and (colaborador_id is null or colaborador_id = ?)',[$lista_id,$user_id])->take(4)->get();
         if (count($atenciones)>0){
             $atenciones[0]->colaborador_id=$user_id;
+            $atenciones[0]->fecha_asignado=Carbon::now();
             $atenciones[0]->save();
         }
         
@@ -229,6 +232,8 @@ class AtencionController extends Controller
         
         $atencion = Atencion::find($id);
         $atencion->estado_id=$estado_id;
+        if ($estado_id==2){$atencion->fecha_atendido=Carbon::now();}
+        if ($estado_id==3){$atencion->fecha_ausente=Carbon::now();}
         $atencion->save();
         
         return $atencion;
@@ -245,6 +250,17 @@ class AtencionController extends Controller
         $atenciones = Atencion::whereRaw('lista_id=? and estado_id<>1 and colaborador_id=?',[$lista_id,$user_id])->orderBy('id', 'desc')->first();
         
         return $atenciones;
+    }
+    
+    public function reporte_1()
+    {
+        header("Access-Control-Allow-Origin: *");
+        header("Allow: GET, POST, OPTIONS");
+        
+        
+        $result = DB::table('atencions')->select(DB::raw('SEC_TO_TIME(avg(TIME_TO_SEC(timediff(fecha_asignado,fecha_generado)))) as asignado, SEC_TO_TIME(avg(TIME_TO_SEC(timediff(fecha_atendido,fecha_asignado)))) as atendido, sum(1) as cantidad'),'colaborador_id','users.name')->join('users', 'atencions.colaborador_id', '=', 'users.id')->where('fecha_atendido','<>', 'null')->groupBy('colaborador_id')->get();
+        
+        return $result;
     }
     
     /**

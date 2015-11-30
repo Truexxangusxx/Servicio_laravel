@@ -790,3 +790,39 @@ app.controller("accesos_controller", function($scope, $http,$window){
 		
 	});
 
+//reporte_controller-----------------------------------------------------------------------------------------------------------------------------
+app.controller("reporte_controller", function($scope, $http,$window){
+	    $scope.user = {};
+	    $scope.elementos = {};
+		
+		
+		$scope.sesion={};
+		$http({
+		        url: "/usuario_logeado",
+		        method: "GET"
+		    })
+        		.success(function(data){
+                    $scope.sesion=data;
+        		})
+        		.error(function(err){
+        			console.log(err);
+        	});
+		
+        
+		
+		    $http({
+		        url: "/reporte_1",
+		        method: "GET",
+		        params: $scope.user
+		    })
+        		.success(function(data){
+                    $scope.elementos=data;
+                    console.log(data);
+        		})
+        		.error(function(err){
+        			error(err);
+        		});
+        		
+		
+	});
+

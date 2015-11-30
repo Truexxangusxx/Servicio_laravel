@@ -73,6 +73,7 @@ $("#error a").click(function (e) {
         <li ng-if="sesion.admin==1"><a href = "accesos">Accesos</a></li>
         <li ng-if="sesion.name!=Undefined"><a href = "app_solicitar_ticket">Solicitar ticket</a></li>
         <li ng-if="sesion.name!=Undefined"><a href = "app_ver_estado">Estado de atencion</a></li>
+        <li ng-if="sesion.admin==1"><a href = "app_reporte">Reporte 1</a></li>
 
       </ul>
    </div>
