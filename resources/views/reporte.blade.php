@@ -30,7 +30,14 @@
        </tbody>
        
   </table>
+  
+  
+  
+<div class="demo-container">
+			<div id="placeholder" class="demo-placeholder"></div>
+	</div>    
 
 
 @stop
+
 

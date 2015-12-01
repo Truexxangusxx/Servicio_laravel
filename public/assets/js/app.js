@@ -794,6 +794,8 @@ app.controller("accesos_controller", function($scope, $http,$window){
 app.controller("reporte_controller", function($scope, $http,$window){
 	    $scope.user = {};
 	    $scope.elementos = {};
+	    $scope.chart = {};
+	    
 		
 		
 		$scope.sesion={};
@@ -815,14 +817,98 @@ app.controller("reporte_controller", function($scope, $http,$window){
 		        method: "GET",
 		        params: $scope.user
 		    })
-        		.success(function(data){
-                    $scope.elementos=data.reporte1;
-                    console.log(data);
+        		.success(function(data2){
+                    $scope.elementos=data2.reporte1;
+                    $scope.chart=data2.reporte2;
+                    
         		})
         		.error(function(err){
         			error(err);
-        		});
+        		}).then(function successCallback(response) {
+                
+                
+                
+        var data = $scope.chart;
+                
+        var placeholder = $("#placeholder");
+		placeholder.unbind();
+
+			$.plot(placeholder, data, {
+				series: {
+					pie: { 
+						show: true,
+						radius: 1,
+						label: {
+							show: true,
+							radius: 3/4,
+							formatter: labelFormatter,
+							background: {
+								opacity: 0.5
+							}
+						}
+					}
+				},
+				legend: {
+					show: false
+				}
+			});
+
+			setCode([
+				"$.plot('#placeholder', data, {",
+				"    series: {",
+				"        pie: {",
+				"            show: true,",
+				"            radius: 1,",
+				"            label: {",
+				"                show: true,",
+				"                radius: 3/4,",
+				"                formatter: labelFormatter,",
+				"                background: {",
+				"                    opacity: 0.5",
+				"                }",
+				"            }",
+				"        }",
+				"    },",
+				"    legend: {",
+				"        show: false",
+				"    }",
+				"});"
+			]);
+		
+		$("#footer").prepend("Flot " + $.plot.version + " &ndash; ");
+
+        
+                
+                
+                
+                
+                
+                
+              }, function errorCallback(response) {
+                
+              });
+        		
+        		
+        		
+        		
+		
+		
+		
+
+
+        		
+        		
+        		
+        		
+        		
         		
 		
 	});
 
+	function labelFormatter(label, series) {
+		return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;'>" + label + "<br/>" + Math.round(series.percent) + "%</div>";
+	}
+
+	function setCode(lines) {
+		$("#code").text(lines.join("\n"));
+	}
