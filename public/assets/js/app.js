@@ -816,7 +816,7 @@ app.controller("reporte_controller", function($scope, $http,$window){
 		        params: $scope.user
 		    })
         		.success(function(data){
-                    $scope.elementos=data;
+                    $scope.elementos=data.reporte1;
                     console.log(data);
         		})
         		.error(function(err){

@@ -258,9 +258,10 @@ class AtencionController extends Controller
         header("Allow: GET, POST, OPTIONS");
         
         
-        $result = DB::table('atencions')->select(DB::raw('SEC_TO_TIME(avg(TIME_TO_SEC(timediff(fecha_asignado,fecha_generado)))) as asignado, SEC_TO_TIME(avg(TIME_TO_SEC(timediff(fecha_atendido,fecha_asignado)))) as atendido, sum(1) as cantidad'),'colaborador_id','users.name')->join('users', 'atencions.colaborador_id', '=', 'users.id')->where('fecha_atendido','<>', 'null')->groupBy('colaborador_id')->get();
+        $result = DB::table('atencions')->select(DB::raw('SEC_TO_TIME(avg(TIME_TO_SEC(timediff(fecha_asignado,fecha_generado)))) as asignado, SEC_TO_TIME(avg(TIME_TO_SEC(timediff(fecha_atendido,fecha_asignado)))) as atendido, sum(1) as cantidad'),'colaborador_id','users.name')->join('users', 'atencions.colaborador_id', '=', 'users.id')->where('fecha_atendido','<>', 'null')->where('fecha_generado','<>', 'null')->where('fecha_asignado','<>', 'null')->groupBy('colaborador_id')->get();
+        $result2 = DB::table('atencions')->select(DB::raw('sum(1) as data'),'colaborador_id','users.name as label')->join('users', 'atencions.colaborador_id', '=', 'users.id')->where('estado_id','=', '2')->groupBy('colaborador_id')->get();
         
-        return $result;
+        return ["reporte1"=>$result,"reporte2"=>$result2];
     }
     
     /**
