@@ -236,7 +236,7 @@ app.controller("atencion_controller", function($scope, $http,$window){
 		        params: {"estado_id":estado,"id":$scope.atencions[0].id}
     		    })
             	.success(function(data){
-                    mensaje("atendido!!!, refresca la pagina");
+                    
             	})
             	.error(function(err){
             		console.log(err);
