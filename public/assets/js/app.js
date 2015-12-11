@@ -632,6 +632,35 @@ app.controller("solicitar_ticket_controller", function($scope, $http,$window){
         		});
 		}
 		
+		$scope.registrar_atencion_sms=function(){
+            $scope.nueva_atencion.user_id = $scope.sesion.id;
+            $scope.nueva_atencion.modo="sms_generico";
+		    $http({
+		        url: "/atencions/create",
+		        method: "GET",
+		        params: $scope.nueva_atencion
+		    })
+        		.success(function(data){
+                    
+                        $http({
+					        url: "https://rest.nexmo.com/sms/json?api_key=1e6c4f1d&api_secret=d7484e91&from=NEXMO&to=51994085900&text="+data,
+					        method: "GET"
+					    })
+			        		.success(function(data){
+			                    mensaje("se envio el numero de atencion a su celular");
+			        		})
+			        		.error(function(err){
+			        			console.log(err);
+			        		});
+                    
+                    
+        		})
+        		.error(function(err){
+        			console.log(err);
+        			error(err.Message);
+        		});
+		}
+		
 		$scope.listar_listas=function(){
 		    
 		    $http({
@@ -692,11 +721,11 @@ app.controller("ver_estado_controller", function($scope, $http,$window){
 		
 		
 		$scope.generar_ticket=function(){
-		    $scope.atencion.user_id=$scope.sesion.id;
+		    
 		    $http({
 		        url: "/generar_ticket",
 		        method: "GET",
-		        params: $scope.atencion
+		        params: {"user_id":$scope.sesion.id, "codigo":$scope.atencion.codigo}
 		    })
         		.success(function(data){
                     $scope.atencion=data;

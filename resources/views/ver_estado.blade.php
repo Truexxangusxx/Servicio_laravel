@@ -7,8 +7,8 @@
 
   
     <form role="form">
-        <input type="text"  ng-model="atencion.codigo" class = "form-control" placeholder = "Ingrese codigo de seguridad"/><br/>
-        <a href = "#" class = "btn btn-default" role = "button" ng-click="generar_ticket()">Generar ticket</a>
+        <input type="text"  ng-model="atencion.codigo" class = "form-control" placeholder = "Ingrese codigo o numero de ticket"/><br/>
+        <a href = "#" class = "btn btn-default" role = "button" ng-click="generar_ticket()">Generar o consultar</a>
         
         <div>
         <h4>Numero: <span class = "label label-default">[[atencion.numero]]</span></h4>

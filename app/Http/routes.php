@@ -55,10 +55,21 @@ Route::get('app_listar_listas', function () {
 
 Route::get('app_solicitar_ticket', function () {
     if (Session::has('user')){
-        return view('solicitar_ticket');
+        if (Session::get('user')->colaborador==1){
+            return view('atender_lista');
+        }
+        else{
+            if (Session::get('user')->admin==1){
+                return view('listar_asignaciones');
+            }
+            else{
+                return view('solicitar_ticket');
+            }
+        }
+        
     }
     else{
-        return view('disparar_ticket');
+        return view('iniciar_sesion');
     }
     
 });
@@ -81,7 +92,7 @@ Route::get('demo', function () {
 
 
 Route::get('/', function () {
-    return view('disparar_ticket');
+    return view('iniciar_sesion');
 });
 
 Route::get('totem', function () {

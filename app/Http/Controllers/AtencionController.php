@@ -119,6 +119,25 @@ class AtencionController extends Controller
                 $result = $atencion->codigo;
                 
                 break;
+            case "sms_generico":
+                
+                $codigo=$atencion->id.date("d").date("i");
+                $atencion->codigo = $codigo;
+                $atencion->save();
+                
+                $atencion->posicion = Atencion::whereRaw('numero is not null and lista_id = ?', [$atencion->lista_id])->count()+1;
+                $atencion->save();
+                
+                $lista = Lista::find( $atencion->lista_id);
+                $atencion->numero=$lista->codigo.$atencion->posicion;
+                $atencion->fecha_generado=Carbon::now();
+                $atencion->estado_id=1;//estado 1 es en espera
+                $atencion->nombre=$request->input('nombre');;
+                $atencion->dni=$request->input('dni');;
+                $atencion->save();
+                $result = $atencion->numero;
+                
+                break;
         }
         
         
@@ -138,6 +157,11 @@ class AtencionController extends Controller
         
         
         $atencion = Atencion::whereRaw('user_id = ? and codigo = ?', [$user_id,$codigo])->get()->first();
+        
+        
+        if ($atencion == null){
+            $atencion = Atencion::whereRaw('numero = ?', [$codigo])->get()->first();
+        }
         
         if ($atencion == null){
             Session::put('atencion', $atencion);
@@ -173,8 +197,8 @@ class AtencionController extends Controller
     {
         header("Access-Control-Allow-Origin: *");
         header("Allow: GET, POST, OPTIONS");
-        $atencion=Session::get('user');
-        return Session::get('user');//$request->session()->get('user');
+        
+        return Session::get('user');
     }
     
     public function obtener_sesion_atencion(Request $request)
