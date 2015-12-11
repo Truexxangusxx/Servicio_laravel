@@ -183,10 +183,12 @@ class AtencionController extends Controller
             //estado_id=1 es en espera
             $predecesores = Atencion::whereRaw('estado_id = 1 and posicion < ? and lista_id = ?', [$atencion->posicion,$atencion->lista_id])->count();
             
+            $estimado = DB::table('atencions')->select(DB::raw('avg(TIME_TO_SEC(timediff(fecha_asignado,fecha_generado)))/60 + avg(TIME_TO_SEC(timediff(fecha_atendido,fecha_asignado)))/60 as atendido, lista_id'))->where('fecha_atendido','<>', 'null')->where('fecha_generado','<>', 'null')->where('fecha_asignado','<>', 'null')->where('lista_id','=', $atencion->lista_id)->get()[0]->atendido;
+            if ($estimado==null){$estimado=0;}
             
             $array=$atencion->toArray();
             $array['predecesores'] = $predecesores;
-            $array['tiempo'] = ($predecesores*5)." minutos";
+            $array['tiempo'] = ($predecesores*$estimado)." minutos";
             Session::put('atencion', $array);
             return $array;
         }
