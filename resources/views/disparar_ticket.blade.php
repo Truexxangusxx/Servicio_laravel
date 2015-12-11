@@ -15,7 +15,7 @@
         </select><br/>
         
         <input type="text" ng-model="nueva_atencion.nombre" class = "form-control" placeholder = "Ingrese su nombre"/><br/>
-        <input type="text" ng-model="nueva_atencion.dni" class = "form-control" placeholder = "Ingrese su DNI"/><br/>
+        <input type="tel" ng-model="nueva_atencion.dni" class = "form-control" placeholder = "Ingrese su DNI"/><br/>
         
         <a href = "#" class = "btn btn-default" role = "button" ng-click="registrar_atencion()">Imprimir</a>
     </form>

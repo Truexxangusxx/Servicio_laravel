@@ -16,6 +16,7 @@
         <select class = "form-control" ng-model="nueva_atencion.modo" >
             <option value="">Seleccione un modo de recepcion</option>
             <option value="correo">correo</option>
+            <option value="sms">sms</option>
             <option value="imprimir">imprimir</option>
         </select><br/>
         <a href = "#" class = "btn btn-default" role = "button" ng-click="registrar_atencion()">Registrar</a>

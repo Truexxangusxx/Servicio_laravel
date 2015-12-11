@@ -79,6 +79,7 @@ class AtencionController extends Controller
                     $message->to($usuario->email)->subject('codigo de generacion');
                 });
                 
+                
                 $result = "Se envió un correo a: ".$usuario->email;        
                 break;
             case "imprimir":
@@ -113,16 +114,14 @@ class AtencionController extends Controller
                 $result = $atencion->numero;
                 
                 break;
+            case "sms":
+                
+                $result = $atencion->codigo;
+                
+                break;
         }
         
         
-        
-        if ($modo=="correo"){
-            
-        }
-        else{
-            
-        }
         
         
         $request->session()->put('atencion', $atencion);

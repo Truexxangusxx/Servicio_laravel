@@ -144,7 +144,8 @@ return [
         course\Providers\AppServiceProvider::class,
         course\Providers\AuthServiceProvider::class,
         course\Providers\EventServiceProvider::class,
-        course\Providers\RouteServiceProvider::class,
+        course\Providers\RouteServiceProvider::class
+        
 
     ],
 
@@ -193,8 +194,12 @@ return [
         'Storage'   => Illuminate\Support\Facades\Storage::class,
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
-        'View'      => Illuminate\Support\Facades\View::class,
+        'View'      => Illuminate\Support\Facades\View::class
 
-    ],
+    ]
+
+
+
+
 
 ];

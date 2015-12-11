@@ -565,18 +565,6 @@ app.controller("solicitar_ticket_controller", function($scope, $http,$window){
         	});
 		
 		
-		$scope.sesion={};
-		$http({
-		        url: "/usuario_logeado",
-		        method: "GET"
-		    })
-        		.success(function(data){
-                    $scope.sesion=data;
-        		})
-        		.error(function(err){
-        			console.log(err);
-        	});
-		
 		
 		$http({
 		        url: "/empresas",
@@ -618,9 +606,23 @@ app.controller("solicitar_ticket_controller", function($scope, $http,$window){
                     {
                         mensaje(data);
                     }
-                    else{
+                    if ($scope.nueva_atencion.modo =="imprimir")
+                    {
                         $("#impresion h1").text(data);
                         $scope.printDiv("impresion");    
+                    }
+                    if ($scope.nueva_atencion.modo =="sms")
+                    {
+                        $http({
+					        url: "https://rest.nexmo.com/sms/json?api_key=1e6c4f1d&api_secret=d7484e91&from=NEXMO&to=51994085900&text="+data,
+					        method: "GET"
+					    })
+			        		.success(function(data){
+			                    mensaje("se envio el codigo de activacion a su celular");
+			        		})
+			        		.error(function(err){
+			        			console.log(err);
+			        		});
                     }
                     
         		})

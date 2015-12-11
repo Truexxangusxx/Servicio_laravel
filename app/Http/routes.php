@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Session as Session;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -53,7 +54,13 @@ Route::get('app_listar_listas', function () {
 });
 
 Route::get('app_solicitar_ticket', function () {
-    return view('solicitar_ticket');
+    if (Session::has('user')){
+        return view('solicitar_ticket');
+    }
+    else{
+        return view('disparar_ticket');
+    }
+    
 });
 
 Route::get('app_ver_estado', function () {
@@ -77,8 +84,8 @@ Route::get('/', function () {
     return view('disparar_ticket');
 });
 
-Route::get('prueba', function () {
-    return 'esto es una prueba';
+Route::get('totem', function () {
+    return view('disparar_ticket');
 });
 
 
