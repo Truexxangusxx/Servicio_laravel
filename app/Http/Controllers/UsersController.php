@@ -8,14 +8,13 @@ use course\User;
 use Session;
 use DB;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Mail;
 
 class UsersController extends Controller{
 
         public function getIndex(Request $request){
             header("Access-Control-Allow-Origin: *");
             header("Allow: GET, POST, OPTIONS");
-            
-            
             
             $colaborador =$request->input('colaborador');
             
@@ -26,9 +25,7 @@ class UsersController extends Controller{
                 $users = User::where('colaborador',$colaborador)->get();
             }
             
-            
             return $users;
-            
         }
         
         
@@ -56,6 +53,7 @@ class UsersController extends Controller{
                 $dni =$request->input('dni');
                 $email =$request->input('email');
                 $password =$request->input('password');
+                $telefono =$request->input('telefono');
                 
                 if(User::whereRaw('email=?', [$email])->count()>0){
                     $user = null;
@@ -63,8 +61,15 @@ class UsersController extends Controller{
                     $msg="Este correo ya ha sido registrado";    
                 }
                 else{
-                    $user = User::create(['name' => $nombre, "dni" => $dni,'email' => $email, "password" => $password]);
-                    $msg="Usuario registrado correctamente";    
+                    $user = User::create(['name' => $nombre, "dni" => $dni,'email' => $email, "password" => $password, "telefono" => $telefono]);
+                    
+                    $data = array(
+                        'url' => "http://localhost:8000/registrar_usuario/".$user->email."/confirmar/123",
+                    );
+                    Mail::send('mails.confirmacion', $data, function ($message) use ($user) {
+                        $message->to($user->email)->subject('Confirmar registro');
+                    });
+                    $msg="Se envio un correo de confirmmacion a su cuenta de correo";    
                 }
                 
             } catch(\Exception $e) {

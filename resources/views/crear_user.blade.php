@@ -23,6 +23,10 @@
         <div class="help-block with-errors"></div>
         </div>
         <div class="form-group">
+        <input type="text" pattern="[0-9]{1,}$" maxlength="9" minlength="9" ng-model="nuevo_usuario.telefono" class = "form-control" placeholder = "Telefono" data-error="El numero de telefono es invalido" required/>
+        <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group">
         <input type="password"  ng-model="nuevo_usuario.password" class = "form-control" placeholder = "Password" required/>
         </div>
         <div class="form-group">
