@@ -612,7 +612,7 @@ app.controller("solicitar_ticket_controller", function($scope, $http,$window){
 							mensaje("se enviará el codigo de activacion a su celular");
 							$http({
 								url: "https://rest.nexmo.com/sms/json",
-								method: "GET",
+								method: "POST",
 								params: {"api_key":"1e6c4f1d", "api_secret":"d7484e91", "from": "NEXMO", "to":"51994085900", "text":data}
 							})
 								.success(function(data2){
@@ -647,7 +647,7 @@ app.controller("solicitar_ticket_controller", function($scope, $http,$window){
                     mensaje("se enviará el numero de atencion a su celular");
                         $http({
 					        url: "https://rest.nexmo.com/sms/json",
-							method: "GET",
+							method: "POST",
 							params: {"api_key":"1e6c4f1d", "api_secret":"d7484e91", "from": "NEXMO", "to":"51994085900", "text":data}
 					    })
 			        		.success(function(data2){
