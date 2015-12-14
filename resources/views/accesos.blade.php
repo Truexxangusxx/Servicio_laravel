@@ -7,7 +7,7 @@
 
   
     <form role="form">
-        <input type="text"  ng-model="user.email" class = "form-control" placeholder = "Ingrese correo del usuario"/><br/>
+        <input type="text"  ng-model="user_busqueda.email" class = "form-control" placeholder = "Ingrese correo del usuario"/><br/>
         <a href = "#" class = "btn btn-default" role = "button" ng-click="buscar_user()">Buscar</a>
         
         <div>

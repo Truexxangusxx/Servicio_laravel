@@ -772,6 +772,7 @@ app.controller("ver_estado_controller", function($scope, $http,$window){
 //accesos_controller-----------------------------------------------------------------------------------------------------------------------------
 app.controller("accesos_controller", function($scope, $http,$window){
 	    $scope.user = {};
+	    $scope.user_busqueda = {};
 		
 		
 		$scope.sesion={};
@@ -793,7 +794,7 @@ app.controller("accesos_controller", function($scope, $http,$window){
 		    $http({
 		        url: "/buscar_user",
 		        method: "GET",
-		        params: $scope.user
+		        params: $scope.user_busqueda
 		    })
         		.success(function(data){
                     $scope.user=data;
