@@ -612,12 +612,12 @@ app.controller("solicitar_ticket_controller", function($scope, $http,$window){
                         $scope.printDiv("impresion");    
                     }
                     if ($scope.nueva_atencion.modo =="sms")
-                    {
+                    {mensaje("se enviará el codigo de activacion a su celular");
                         $http({
 					        url: "https://rest.nexmo.com/sms/json?api_key=1e6c4f1d&api_secret=d7484e91&from=NEXMO&to=51994085900&text="+data,
 					        method: "GET"
 					    })
-			        		.success(function(data){
+			        		.success(function(data2){
 			                    mensaje("se envio el codigo de activacion a su celular");
 			        		})
 			        		.error(function(err){
@@ -641,12 +641,12 @@ app.controller("solicitar_ticket_controller", function($scope, $http,$window){
 		        params: $scope.nueva_atencion
 		    })
         		.success(function(data){
-                    
+                    mensaje("se enviará el numero de atencion a su celular");
                         $http({
 					        url: "https://rest.nexmo.com/sms/json?api_key=1e6c4f1d&api_secret=d7484e91&from=NEXMO&to=51994085900&text="+data,
 					        method: "GET"
 					    })
-			        		.success(function(data){
+			        		.success(function(data2){
 			                    mensaje("se envio el numero de atencion a su celular");
 			        		})
 			        		.error(function(err){
@@ -713,6 +713,7 @@ app.controller("ver_estado_controller", function($scope, $http,$window){
 		    })
         		.success(function(data){
                     $scope.atencion=data;
+                    $scope.generar_ticket();
         		})
         		.error(function(err){
         			console.log(err);
