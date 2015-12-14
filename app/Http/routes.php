@@ -92,7 +92,22 @@ Route::get('demo', function () {
 
 
 Route::get('/', function () {
-    return view('iniciar_sesion');
+    if (Session::has('user')){
+        if (Session::get('user')->colaborador==1){
+            return view('atender_lista');
+        }
+        else{
+            if (Session::get('user')->admin==1){
+                return view('listar_asignaciones');
+            }
+            else{
+                return view('solicitar_ticket');
+            }
+        }
+    }
+    else{
+        return view('iniciar_sesion');
+    }
 });
 
 Route::get('totem', function () {
