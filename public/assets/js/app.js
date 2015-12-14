@@ -595,6 +595,7 @@ app.controller("solicitar_ticket_controller", function($scope, $http,$window){
 		
 		$scope.registrar_atencion=function(){
             $scope.nueva_atencion.user_id = $scope.sesion.id;
+			
 		    $http({
 		        url: "/atencions/create",
 		        method: "GET",
@@ -606,24 +607,26 @@ app.controller("solicitar_ticket_controller", function($scope, $http,$window){
                     {
                         mensaje(data);
                     }
-                    if ($scope.nueva_atencion.modo =="imprimir")
-                    {
-                        $("#impresion h1").text(data);
-                        $scope.printDiv("impresion");    
-                    }
-                    if ($scope.nueva_atencion.modo =="sms")
-                    {mensaje("se enviará el codigo de activacion a su celular");
-                        $http({
-					        url: "https://rest.nexmo.com/sms/json?api_key=1e6c4f1d&api_secret=d7484e91&from=NEXMO&to=51994085900&text="+data,
-					        method: "GET"
-					    })
-			        		.success(function(data2){
-			                    mensaje("se envio el codigo de activacion a su celular");
-			        		})
-			        		.error(function(err){
-			        			console.log(err);
-			        		});
-                    }
+					else{
+						if ($scope.nueva_atencion.modo =="sms"){
+							mensaje("se enviará el codigo de activacion a su celular");
+							$http({
+								url: "https://rest.nexmo.com/sms/json",
+								method: "GET",
+								params: {"api_key":"1e6c4f1d", "api_secret":"d7484e91", "from": "NEXMO", "to":"51994085900", "text":data}
+							})
+								.success(function(data2){
+									mensaje("se envio el codigo de activacion a su celular");
+								})
+								.error(function(err){
+									console.log(err);
+								});		
+						}
+						else{
+							$("#impresion h1").text(data);
+                        	$scope.printDiv("impresion"); 	
+						}	
+					}
                     
         		})
         		.error(function(err){
@@ -643,8 +646,9 @@ app.controller("solicitar_ticket_controller", function($scope, $http,$window){
         		.success(function(data){
                     mensaje("se enviará el numero de atencion a su celular");
                         $http({
-					        url: "https://rest.nexmo.com/sms/json?api_key=1e6c4f1d&api_secret=d7484e91&from=NEXMO&to=51994085900&text="+data,
-					        method: "GET"
+					        url: "https://rest.nexmo.com/sms/json",
+							method: "GET",
+							params: {"api_key":"1e6c4f1d", "api_secret":"d7484e91", "from": "NEXMO", "to":"51994085900", "text":data}
 					    })
 			        		.success(function(data2){
 			                    mensaje("se envio el numero de atencion a su celular");
