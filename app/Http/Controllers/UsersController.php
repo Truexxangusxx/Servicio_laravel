@@ -66,7 +66,7 @@ class UsersController extends Controller{
                     $user->save();
                     
                     $data = array(
-                        'url' => "http://localhost:8000/registrar_usuario/".$user->email."/confirmar/".$user->codigo,
+                        'url' => "http://localhost:8000/confirmar?mail=".$user->email."&confirmar=/".$user->codigo,
                     );
                     Mail::send('mails.confirmacion', $data, function ($message) use ($user) {
                         $message->to($user->email)->subject('Confirmar registro');
@@ -200,19 +200,21 @@ class UsersController extends Controller{
             return $user;
         }
         
-        public function confirmacion($email,$codigo)
+        public function confirmacion(Request $request)
         {
             header("Access-Control-Allow-Origin: *");
             header("Allow: GET, POST, OPTIONS");
             
-            $data['email'] = $email;
-            $data['codigo'] = $codigo;
+            $email =$request->input('mail');
+            $codigo =$request->input('confirmar');
 
             
-            $user=User::whereRaw('email=? and codigo=? and activo<>1', [$email,$codigo])->first();
-            $user->activo=1;
-            $user->save();
-            
+            $user=User::whereRaw('email=? and codigo=? and activo=0', [$email,$codigo])->first();
+            if ($user != null){
+                $user->activo=1;
+                $user->save();
+            }
+
             return view('iniciar_sesion');
         }
     

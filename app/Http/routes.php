@@ -184,5 +184,5 @@ Route::get('registrar_usuario/{email}/confirmar/{codigo}', function ($email,$cod
     return 'el email es :'.$email." y el codigo de activacion es:".$codigo;
 });
 */
-Route::get('registrar_usuario/{email}/confirmar/{codigo}', 'UsersController@confirmacion');
+Route::get('confirmar', 'UsersController@confirmacion');
 
