@@ -407,6 +407,7 @@ app.controller("crear_user_controller", function($scope, $http){
 		        error('Complete correctamente los campos');
 		    }
 		    else{
+				$("#btnregistrar").button('loading');
 		        $http({
 		        url: "/users/create",
 		        method: "GET",
@@ -419,9 +420,11 @@ app.controller("crear_user_controller", function($scope, $http){
                         else{
                             mensaje(data.msg);
                         }
+						$("#btnregistrar").button('reset');
             		})
             		.error(function(err){
             			error(err.Message);
+						$("#btnregistrar").button('reset');
             	});
 		    }
 		   

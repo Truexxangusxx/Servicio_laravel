@@ -62,9 +62,11 @@ class UsersController extends Controller{
                 }
                 else{
                     $user = User::create(['name' => $nombre, "dni" => $dni,'email' => $email, "password" => $password, "telefono" => $telefono]);
+                    $user->codigo=$user->id.date("i").date("d");
+                    $user->save();
                     
                     $data = array(
-                        'url' => "http://localhost:8000/registrar_usuario/".$user->email."/confirmar/123",
+                        'url' => "http://localhost:8000/registrar_usuario/".$user->email."/confirmar/".$user->codigo,
                     );
                     Mail::send('mails.confirmacion', $data, function ($message) use ($user) {
                         $message->to($user->email)->subject('Confirmar registro');
@@ -196,6 +198,22 @@ class UsersController extends Controller{
             $user->save();
             
             return $user;
+        }
+        
+        public function confirmacion($email,$codigo)
+        {
+            header("Access-Control-Allow-Origin: *");
+            header("Allow: GET, POST, OPTIONS");
+            
+            $data['email'] = $email;
+            $data['codigo'] = $codigo;
+
+            
+            $user=User::whereRaw('email=? and codigo=? and activo<>1', [$email,$codigo])->first();
+            $user->activo=1;
+            $user->save();
+            
+            return view('iniciar_sesion');
         }
     
 }

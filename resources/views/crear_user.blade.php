@@ -35,11 +35,8 @@
         </div>
         
         
-        
-        
-        
-        <a href = "#" class = "btn btn-default" role = "button" ng-click="registrar_usuario()">Registrar</a>
-        <a href = "#" class = "btn btn-default" role = "button" >Regresar</a>
+        <a href = "#" id="btnregistrar" class="btn btn-default" role="button" ng-click="registrar_usuario()">Registrar</a>
+        <a href = "#" class="btn btn-default" role="button" >Regresar</a>
     </form>
   
 

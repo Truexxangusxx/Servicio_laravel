@@ -179,6 +179,10 @@ Route::get('asignar_atencion', 'AtencionController@asignar_atencion');
 
 Route::get('reporte_1', 'AtencionController@reporte_1');
 
+/*
 Route::get('registrar_usuario/{email}/confirmar/{codigo}', function ($email,$codigo) {
     return 'el email es :'.$email." y el codigo de activacion es:".$codigo;
 });
+*/
+Route::get('registrar_usuario/{email}/confirmar/{codigo}', 'UsersController@confirmacion');
+
