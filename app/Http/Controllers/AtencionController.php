@@ -156,7 +156,7 @@ class AtencionController extends Controller
         $codigo =$request->input('codigo');
         
         
-        $atencion = Atencion::whereRaw('user_id = ? and codigo = ?', [$user_id,$codigo])->get()->first();
+        $atencion = Atencion::whereRaw('codigo = ?', [$codigo])->get()->first();
         
         
         if ($atencion == null){
