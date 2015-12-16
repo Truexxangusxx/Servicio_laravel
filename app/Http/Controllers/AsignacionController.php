@@ -109,6 +109,17 @@ class AsignacionController extends Controller
          
         return $asignacions->toArray();
     }
+    
+    public function editar_asignacion(Request $request)
+    {
+        header("Access-Control-Allow-Origin: *");
+        header("Allow: GET, POST, OPTIONS");
+        
+        $id =$request->input('id');
+        $asignacion=Asignacion::find($id);
+         
+        return view('asignar_colaborador');
+    }
     /**
      * Store a newly created resource in storage.
      *

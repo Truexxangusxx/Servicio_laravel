@@ -5,7 +5,7 @@
 
 @section('content')
 
-  
+<form method="post" action="editar_asignacion"> 
   <table class = "table table-striped">
        <caption>Listado</caption>
        
@@ -29,6 +29,7 @@
             <td>[[asignacion.lista.nombre]]</td>
             <td>[[asignacion.lista.empresa.nombre]]</td>
             <td><a href = "#" class = "btn btn-default" role = "button" ng-click="eliminar_asignacion([[asignacion.id]])">eliminar</a></td>
+            <td><a href = "#" class = "btn btn-default" role = "button" ng-click="editar_asignacion([[asignacion.id]])">editar</a></td>
         </tr>
          
        </tbody>
@@ -37,6 +38,6 @@
 
 <a href = "app_asignar_colaborador" class = "btn btn-default" role = "button" >Nueva asignacion</a>
 <a href = "#" class = "btn btn-default" role = "button" >Salir</a>
-  
+</form>  
 
 @stop

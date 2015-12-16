@@ -17,7 +17,7 @@ Route::get('app_reporte', function () {
     return view('reporte');
 });
 
-Route::get('app_asignar_colaborador', function () {
+Route::match(['get', 'post'],'app_asignar_colaborador', function () {
     return view('asignar_colaborador');
 });
 
@@ -187,4 +187,6 @@ Route::get('registrar_usuario/{email}/confirmar/{codigo}', function ($email,$cod
 Route::get('confirmar', 'UsersController@confirmacion');
 
 Route::get('cancelar_ticket', 'AtencionController@cancelar_ticket');
+
+Route::match(['get', 'post'],'editar_asignacion', 'AsignacionController@editar_asignacion');
 

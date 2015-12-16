@@ -462,19 +462,27 @@ app.controller("asignacion_controller", function($scope, $http,$window){
         		});
         		
 		$scope.eliminar_asignacion=function(id){
-		    
-		    $http({
-		        url: "/eliminar_asignacion",
-		        method: "GET",
-		        params: {"id":parseInt(id)}
-		    })
+		    if(confirm("¿Esta seguro de eliminar el registro?")) {
+				$http({
+					url: "/eliminar_asignacion",
+					method: "GET",
+					params: {"id":parseInt(id)}
+		    	})
         		.success(function(data){
                     $scope.asignacions=data;
         		})
         		.error(function(err){
         			error(err);
-        		});
-        	
+        		});	
+			}
+		}
+		
+		$scope.editar_asignacion=function(id){
+			var input = $("<input>")
+               .attr("type", "hidden")
+               .attr("name", "id").val(id);
+			$('form').append($(input));
+			$("form").submit();
 		}
 		
 	});
