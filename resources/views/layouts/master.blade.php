@@ -42,6 +42,13 @@ $("#error a").click(function (e) {
 }
 
 
+$(document).unbind("keyup").keyup(function(e){ 
+    var code = e.which;
+    if(code==13)
+    {
+        $(".defecto").click();
+    }
+});
 
 </script>
 

@@ -6,19 +6,11 @@
 @section('content')
 
 
-<script>
-    $(document).unbind("keyup").keyup(function(e){ 
-        var code = e.which;
-        if(code==13)
-        {
-            $("#btn").click();
-        }
-    });
-</script>
+
   
     <form role="form">
         <input type="text"  ng-model="atencion.codigo" class = "form-control" placeholder = "Ingrese codigo o numero de ticket"/><br/>
-        <a href = "#" id="btn" class="btn btn-default" role="button" ng-click="generar_ticket()">Generar o consultar</a>
+        <a href = "#" class="btn btn-default defecto" role="button" ng-click="generar_ticket()">Generar o consultar</a>
         
         <div>
         <h4>Numero: <span class = "label label-default">[[atencion.numero]]</span></h4>
