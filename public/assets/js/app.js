@@ -35,12 +35,11 @@ app.controller("first_controller", function($scope, $http,$window){
 		   })
         		.success(function(data){
         		    //console.log(data);
-        		    if(data == "")
+        		    if(data.error)
         		    {
-        		        $window.location.href ="/app_iniciar_sesion";
+        		        error(data.msg);
         		    }
         		    else{
-        		          
         		        $window.location.href ="/app_solicitar_ticket";
         		    }
                     
@@ -746,15 +745,21 @@ app.controller("ver_estado_controller", function($scope, $http,$window){
 		$scope.cancelar_ticket=function(){
 		    
 		    $http({
-		        url: "/listas",
+		        url: "/cancelar_ticket",
 		        method: "GET",
-		        params: {"empresa_id":$scope.empresa}
+		        params: {"atencion_id":$scope.atencion.id}
 		    })
         		.success(function(data){
-                    $scope.listas=data;
+                    if (data.error){
+						error(data.msg);
+					}
+					else{
+						mensaje(data.msg);
+						$scope.atencion=data.atencion;
+					}
         		})
         		.error(function(err){
-        			alert(err);
+        			error(err);
         		});
 		}
 		

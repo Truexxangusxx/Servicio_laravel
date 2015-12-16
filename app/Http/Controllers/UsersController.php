@@ -89,13 +89,30 @@ class UsersController extends Controller{
             header("Access-Control-Allow-Origin: *");
             header("Allow: GET, POST, OPTIONS");
             
+            $error=false;
             $email =$request->input('email');
             $password =$request->input('password');
             
-            $user = User::whereRaw('email=? and password=? and activo=1', [$email,$password])->first();
-            Session::put('user', $user);
+            try{
+                $user = User::whereRaw('email=? and password=? and activo=1', [$email,$password])->first();
+                if ($user!=null){
+                        Session::put('user', $user);
+                        $msg="Se inicio sesion correctamente";
+                }
+                else{
+                        $error=true;
+                        $msg="Usuario o contraseña invalidos";
+                }
+                        
+            }
+            catch (\Exception $e){
+                $user = null;
+                $error=true;
+                $msg=$e->getMessage();
+            }
             
-            return $user;
+            
+            return ["user"=>$user,"error"=>$error,"msg"=>$msg];
             
         }
         

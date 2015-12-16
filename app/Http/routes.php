@@ -186,3 +186,5 @@ Route::get('registrar_usuario/{email}/confirmar/{codigo}', function ($email,$cod
 */
 Route::get('confirmar', 'UsersController@confirmacion');
 
+Route::get('cancelar_ticket', 'AtencionController@cancelar_ticket');
+

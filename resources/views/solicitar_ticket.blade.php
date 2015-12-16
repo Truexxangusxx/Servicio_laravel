@@ -19,8 +19,8 @@
             <option value="sms">sms</option>
             <option value="imprimir">imprimir</option>
         </select><br/>
-        <a href = "#" class = "btn btn-default" role = "button" ng-click="registrar_atencion()">Registrar</a>
-        <a href = "#" class = "btn btn-default" role = "button" ng-click="printDiv('impresion')">Regresar</a>
+        <a href = "#" class = "btn btn-default" role = "button" ng-click="registrar_atencion()">Solicitar</a>
+        <a href = "#" class = "btn btn-default" role = "button" >Regresar</a>
     </form>
   
 

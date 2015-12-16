@@ -289,6 +289,33 @@ class AtencionController extends Controller
         return ["reporte1"=>$result,"reporte2"=>$result2];
     }
     
+    public function cancelar_ticket(Request $request)
+    {
+        header("Access-Control-Allow-Origin: *");
+        header("Allow: GET, POST, OPTIONS");
+        
+        $error=false;
+        try{
+            $atencion_id=$request->input('atencion_id');
+            $atencion=Atencion::find($atencion_id);
+                
+            if ($atencion->estado_id=1 and $atencion->colaborador_id==null){
+                $atencion->delete();
+                Session::put('atencion', null);
+                $msg="Ticket eliminado";
+            }
+            else{
+                $msg="No se pudo eliminar el ticket";
+            }
+        }
+        catch (\Exception $e){
+            $error=true;
+            $msg=$e->getMessage();
+        }     
+        
+        return ["atencion"=>Session::get('atencion'), "msg"=>$msg, "error"=>$error];
+    }
+    
     /**
      * Store a newly created resource in storage.
      *
