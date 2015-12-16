@@ -92,7 +92,7 @@ class UsersController extends Controller{
             $email =$request->input('email');
             $password =$request->input('password');
             
-            $user = User::whereRaw('email=? and password=?', [$email,$password])->first();
+            $user = User::whereRaw('email=? and password=? and activo=1', [$email,$password])->first();
             Session::put('user', $user);
             
             return $user;
