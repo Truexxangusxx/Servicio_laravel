@@ -190,3 +190,5 @@ Route::get('cancelar_ticket', 'AtencionController@cancelar_ticket');
 
 Route::match(['get', 'post'],'editar_asignacion', 'AsignacionController@editar_asignacion');
 
+Route::match(['get', 'post'],'obtener_asignacion', 'AsignacionController@obtener_asignacion');
+

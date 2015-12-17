@@ -60,31 +60,55 @@ app.controller("asignar_colaborador", function($scope, $http,$window){
 		$scope.empresas = {};
 		$scope.listas = {};
 		$scope.usuarios = {};
+		$scope.nueva_asignacion={};
+		$scope.nueva_asignacion.lista={};
+		
+		$(document).ready(function(){
+			$http({
+		        url: "/obtener_asignacion",
+		        method: "GET",
+				params: {"id":$("#asignacion").val()}
+			})
+				.success(function(data){
+					$scope.nueva_asignacion=data;
+				})
+				.error(function(err){
+					console.log(err);
+			});
+				
+		});
+		
+		
 		
 		$scope.sesion={};
 		$http({
 		        url: "/usuario_logeado",
 		        method: "GET"
-		    })
-        		.success(function(data){
-                    $scope.sesion=data;
-        		})
-        		.error(function(err){
-        			console.log(err);
-        	});
+		})
+        	.success(function(data){
+                $scope.sesion=data;
+        	})
+        	.error(function(err){
+        		console.log(err);
+        });
 		
 		
 		$http({
 		        url: "/empresas",
 		        method: "GET"
 		    })
-        		.success(function(data){
-                    $scope.empresas=data;
-        		})
+        	.success(function(data){
+                $scope.empresas=data;
+        	})
         		.error(function(err){
-        			console.log(err);
-        		});
-        		
+        		console.log(err);
+        	})
+			.then(function(response){
+				$scope.empresa=$scope.empresas[0].id;
+				$("#empresa").get(0).selectedIndex = 1;
+				
+			});
+					
         		
         $http({
 		        url: "/users",

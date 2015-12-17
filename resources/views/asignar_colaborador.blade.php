@@ -2,12 +2,23 @@
 @extends('layouts.master')
 
 @section('controlador', 'asignar_colaborador')
-@section('title', 'Registro de nueva asignacion')
 
+@if(isset($asignacion))
+    @section('title', 'Edicion de asignacion')
+@else
+    @section('title', 'Registro de nueva asignacion')
+@endif
 @section('content')
 
+
+@if(isset($asignacion))
+   {!! $asignacion->lista->empresa_id !!}
+   <input id="asignacion" type="hidden"  ng-model="asignacion" class="form-control" ng-value="{!! $asignacion->id !!}"/>
+@endif
+
+
     <form id="myForm" data-toggle="validator" role="form">
-        <select class = "form-control" ng-model="empresa" ng-options="item.id as item.nombre for item in empresas track by item.id" ng-change="listar_listas()">
+        <select id="empresa" class = "form-control" ng-model="nueva_asignacion.lista.empresa_id" ng-options="item.id as item.nombre for item in empresas track by item.id" ng-change="listar_listas()" >
             <option value="">Seleccione una empresa</option>
         </select><br/>
         <select class = "form-control" ng-model="nueva_asignacion.lista_id" ng-options="item.id as item.nombre for item in listas track by item.id">
@@ -22,5 +33,9 @@
         <a href = "#" class = "btn btn-default" role = "button" ng-click="registrar_asignacion()">Registrar</a>
         <a href = "app_listar_asignaciones" class = "btn btn-default" role = "button" >Regresar</a>
     </form>
+
+
+
+
 
 @stop
