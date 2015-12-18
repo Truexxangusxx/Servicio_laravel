@@ -383,26 +383,45 @@ app.controller("lista_controller", function($scope, $http,$window){
 		$http({
 		        url: "/usuario_logeado",
 		        method: "GET"
-		    })
-        		.success(function(data){
-                    $scope.sesion=data;
-        		})
-        		.error(function(err){
-        			console.log(err);
-        	});
+		})
+        .success(function(data){
+        	$scope.sesion=data;
+        })
+        .error(function(err){
+        	console.log(err);
+        });
 		
-		$http({
+		
+		
+		$(document).ready(function(){
+			
+			if ($('#lista').length){
+				$http({
+		        url: "/obtener_lista",
+		        method: "GET",
+				params: {"id":$("#lista").val()}
+				})
+				.success(function(data){
+					$scope.nueva_lista=data;
+					console.log(data);
+				})
+				.error(function(err){
+					console.log(err);
+				});	
+			}
+			
+			$http({
 		        url: "/empresas",
 		        method: "GET",
-		    })
-        		.success(function(data){
-                    $scope.empresas=data;
-        		})
-        		.error(function(err){
-        			console.log(err);
-        		});
-		
-		
+			})
+			.success(function(data){
+				$scope.empresas=data;
+			})
+			.error(function(err){
+				console.log(err);
+			});
+			
+		});
 		
 		
 		$scope.registrar_lista=function(){
@@ -597,7 +616,7 @@ app.controller("empresa_controller", function($scope, $http, $window){
 	});
 
 //listar_lista_controller-----------------------------------------------------------------------------------------------------------------------------
-app.controller("listar_lista_controller", function($scope, $http){
+app.controller("listar_lista_controller", function($scope, $http, $window){
 		
 		$scope.listas = {};
 		
@@ -605,26 +624,53 @@ app.controller("listar_lista_controller", function($scope, $http){
 		$http({
 		        url: "/usuario_logeado",
 		        method: "GET"
-		    })
-        		.success(function(data){
-                    $scope.sesion=data;
-        		})
-        		.error(function(err){
-        			console.log(err);
-        	});
+		})
+        .success(function(data){
+        	$scope.sesion=data;
+        })
+        .error(function(err){
+        	console.log(err);
+        });
 		
 		$http({
 		        url: "/listas",
 		        method: "GET",
-		    })
+		})
+        .success(function(data){
+        	$scope.listas=data;
+        })
+        .error(function(err){
+        	console.log(err);
+        });
+	
+		$scope.eliminar_lista=function(id){
+			if(confirm("¿Esta seguro de eliminar el registro?")) {
+				$http({
+		        url: "/eliminar_lista",
+		        method: "GET",
+				params: {"id":parseInt(id)}
+		    	})
         		.success(function(data){
-                    $scope.listas=data;
+                    if(data.error){
+						error(data.msg);
+					}
+					else{
+						$window.location.href ="app_listar_listas";
+					}
         		})
         		.error(function(err){
         			console.log(err);
         		});
-	
+			}
+		}
 		
+		$scope.editar_lista=function(id){
+			var input = $("<input>")
+            .attr("type", "hidden")
+            .attr("name", "id").val(id);
+			$('form').append($(input));
+			$("form").submit();
+		}
 		
 	});
 

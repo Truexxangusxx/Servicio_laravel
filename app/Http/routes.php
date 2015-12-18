@@ -197,3 +197,9 @@ Route::match(['get', 'post'],'eliminar_empresa', 'EmpresaController@eliminar_emp
 Route::match(['get', 'post'],'editar_empresa', 'EmpresaController@editar_empresa');
 
 Route::match(['get', 'post'],'obtener_empresa', 'EmpresaController@obtener_empresa');
+
+Route::match(['get', 'post'],'eliminar_lista', 'ListaController@eliminar_lista');
+
+Route::match(['get', 'post'],'editar_lista', 'ListaController@editar_lista');
+
+Route::match(['get', 'post'],'obtener_lista', 'ListaController@obtener_lista');
