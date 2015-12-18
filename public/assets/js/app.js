@@ -306,6 +306,26 @@ app.controller("crear_empresa_controller", function($scope, $http,$window){
 		$scope.empresas = {};
 		
 		
+		$(document).ready(function(){
+			console.log($('#empresa').val());
+			if ($('#empresa').length){
+				console.log($('#empresa').val());
+				$http({
+		        url: "/obtener_empresa",
+		        method: "GET",
+				params: {"id":$("#empresa").val()}
+				})
+				.success(function(data){
+					$scope.empresa=data;
+					console.log(data);
+				})
+				.error(function(err){
+					console.log(err);
+				});	
+			}
+			
+		});
+		
 		$scope.sesion={};
 		$http({
 		        url: "/usuario_logeado",
@@ -514,9 +534,10 @@ app.controller("asignacion_controller", function($scope, $http,$window){
 	});
 
 //empresa_controller-----------------------------------------------------------------------------------------------------------------------------
-app.controller("empresa_controller", function($scope, $http){
-		
+app.controller("empresa_controller", function($scope, $http, $window){
 		$scope.empresas = {};
+		$scope.empresa = {};
+		
 		
 		
 		
@@ -544,7 +565,34 @@ app.controller("empresa_controller", function($scope, $http){
         			console.log(err);
         		});
 	
+		$scope.eliminar_empresa=function(id){
+			if(confirm("¿Esta seguro de eliminar el registro?")) {
+				$http({
+		        url: "/eliminar_empresa",
+		        method: "GET",
+				params: {"id":parseInt(id)}
+		    	})
+        		.success(function(data){
+                    if(data.error){
+						error(data.msg);
+					}
+					else{
+						$window.location.href ="app_listar_empresas";
+					}
+        		})
+        		.error(function(err){
+        			console.log(err);
+        		});
+			}
+		}
 		
+		$scope.editar_empresa=function(id){
+			var input = $("<input>")
+            .attr("type", "hidden")
+            .attr("name", "id").val(id);
+			$('form').append($(input));
+			$("form").submit();
+		}
 		
 	});
 

@@ -192,3 +192,8 @@ Route::match(['get', 'post'],'editar_asignacion', 'AsignacionController@editar_a
 
 Route::match(['get', 'post'],'obtener_asignacion', 'AsignacionController@obtener_asignacion');
 
+Route::match(['get', 'post'],'eliminar_empresa', 'EmpresaController@eliminar_empresa');
+
+Route::match(['get', 'post'],'editar_empresa', 'EmpresaController@editar_empresa');
+
+Route::match(['get', 'post'],'obtener_empresa', 'EmpresaController@obtener_empresa');

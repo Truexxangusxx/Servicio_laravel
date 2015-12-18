@@ -5,7 +5,7 @@
 
 @section('content')
 
-  
+  <form method="post" action="editar_empresa">
   <table class = "table table-striped">
        <caption>Listado</caption>
        
@@ -14,6 +14,7 @@
              <th>id</th>
              <th>nombre</th>
              <th>codigo</th>
+             <th>operaciones</th>
           </tr>
        </thead>
        
@@ -23,6 +24,10 @@
             <td>[[empresa.id]]</td>
             <td>[[empresa.nombre]]</td>
             <td>[[empresa.codigo]]</td>
+            <td>
+              <a href="#" class="btn btn-default" role="button" ng-click="editar_empresa([[empresa.id]])">Editar</a>
+              <a href="#" class="btn btn-default" role="button" ng-click="eliminar_empresa([[empresa.id]])">Eliminar</a>
+            </td>
         </tr>
          
        </tbody>
@@ -31,7 +36,7 @@
 
 <a href = "app_crear_empresa" class = "btn btn-default" role = "button" >Nueva empresa</a>
 <a href = "#" class = "btn btn-default" role = "button" >Salir</a>
-  
+</form>  
 
 @stop
 

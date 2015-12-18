@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use course\Http\Requests;
 use course\Http\Controllers\Controller;
 use course\Empresa;
+use course\Lista;
 
 class EmpresaController extends Controller
 {
@@ -36,8 +37,70 @@ class EmpresaController extends Controller
         
         $nombre =$request->input('nombre');
         $codigo =$request->input('codigo');
+        $id =$request->input('id');
         
-        $empresa = Empresa::create(['nombre' => $nombre, "codigo" => $codigo]);
+        if($id==null){
+            $empresa = Empresa::create(['nombre' => $nombre, "codigo" => $codigo]);
+        }
+        else{
+            $empresa = Empresa::find($id);
+            $empresa->nombre=$nombre;
+            $empresa->codigo=$codigo;
+            $empresa->save();
+        }
+        
+        return $empresa;
+    }
+    
+    public function eliminar_empresa(Request $request)
+    {
+        header("Access-Control-Allow-Origin: *");
+        header("Allow: GET, POST, OPTIONS");
+        $empresa=null;
+        $msg="";
+        $error=false;
+        try{
+            $id =$request->input('id');
+
+            $enuso=Lista::whereRaw("empresa_id=?",[$id])->count();
+            if ($enuso>0){
+                $error=true;
+                $msg="La empresa se encuentra en uso";
+            }
+            
+            if ($error==false){
+                $empresa = Empresa::find($id);
+                $empresa->delete();    
+            }
+        }
+        catch(\Exception $e){
+            $error=true;
+            $msg=$e->getMessage();
+        }
+        
+        return ["empresa"=>$empresa, "msg"=>$msg, "error"=>$error];
+    }
+    
+    public function editar_empresa(Request $request)
+    {
+        header("Access-Control-Allow-Origin: *");
+        header("Allow: GET, POST, OPTIONS");
+        
+        $id =$request->input('id');
+        
+        $empresa = Empresa::find($id);
+        
+        return view('/crear_empresa')->with('empresa', $empresa);
+    }
+    
+    public function obtener_empresa(Request $request)
+    {
+        header("Access-Control-Allow-Origin: *");
+        header("Allow: GET, POST, OPTIONS");
+        
+        $id =$request->input('id');
+        
+        $empresa = Empresa::find($id);
         
         return $empresa;
     }

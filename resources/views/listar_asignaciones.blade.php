@@ -16,7 +16,7 @@
              <th>ventanilla</th>
              <th>linea</th>
              <th>empresa</th>
-             <th>eliminar</th>
+             <th>operaciones</th>
           </tr>
        </thead>
        
@@ -28,8 +28,10 @@
             <td>[[asignacion.ventanilla]]</td>
             <td>[[asignacion.lista.nombre]]</td>
             <td>[[asignacion.lista.empresa.nombre]]</td>
-            <td><a href = "#" class = "btn btn-default" role = "button" ng-click="eliminar_asignacion([[asignacion.id]])">eliminar</a></td>
-            <td><a href = "#" class = "btn btn-default" role = "button" ng-click="editar_asignacion([[asignacion.id]])">editar</a></td>
+            <td>
+              <a href = "#" class = "btn btn-default" role = "button" ng-click="eliminar_asignacion([[asignacion.id]])">eliminar</a>
+              <a href = "#" class = "btn btn-default" role = "button" ng-click="editar_asignacion([[asignacion.id]])">editar</a>
+            </td>
         </tr>
          
        </tbody>
