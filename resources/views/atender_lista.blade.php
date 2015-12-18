@@ -8,19 +8,10 @@
 
 
 
-<script>
-$(document).ready(function(){
-    
-   $("select#lista_clientes").get(0).selectedIndex = 1; 
-    
-});
-</script>
-
-  
 <form role="form">
     
     
-    <select id="lista_clientes" class = "form-control" ng-model="user.lista_id" required ng-options="item.id as item.nombre for item in listas" ng-change="mostrar_cola()">
+    <select class = "form-control" ng-model="user.lista_id" required ng-options="item.id as item.nombre for item in listas" ng-change="mostrar_cola()">
         
     </select><br/>
     <div align="center" class="cont-img" style="padding:20px 0px 20px 0px;">

@@ -62,38 +62,23 @@ app.controller("asignar_colaborador", function($scope, $http,$window){
 		$scope.usuarios = {};
 		$scope.nueva_asignacion={};
 		$scope.nueva_asignacion.lista={};
+		var lista_id=0;
 		
 		$(document).ready(function(){
+			
+			$scope.sesion={};
 			$http({
-		        url: "/obtener_asignacion",
-		        method: "GET",
-				params: {"id":$("#asignacion").val()}
-			})
-				.success(function(data){
-					$scope.nueva_asignacion=data;
-				})
-				.error(function(err){
-					console.log(err);
-			});
-				
-		});
-		
-		
-		
-		$scope.sesion={};
-		$http({
 		        url: "/usuario_logeado",
 		        method: "GET"
-		})
+			})
         	.success(function(data){
                 $scope.sesion=data;
         	})
         	.error(function(err){
         		console.log(err);
-        });
-		
-		
-		$http({
+        	});
+			
+			$http({
 		        url: "/empresas",
 		        method: "GET"
 		    })
@@ -102,26 +87,41 @@ app.controller("asignar_colaborador", function($scope, $http,$window){
         	})
         		.error(function(err){
         		console.log(err);
-        	})
-			.then(function(response){
-				$scope.empresa=$scope.empresas[0].id;
-				$("#empresa").get(0).selectedIndex = 1;
-				
-			});
-					
-        		
-        $http({
+        	});
+			
+			if ($('#asignacion').length){
+				$http({
+		        url: "/obtener_asignacion",
+		        method: "GET",
+				params: {"id":$("#asignacion").val()}
+				})
+				.success(function(data){
+					$scope.nueva_asignacion=data;
+					$scope.empresa=$scope.nueva_asignacion.lista.empresa_id;
+					lista_id=$scope.nueva_asignacion.lista_id;
+					console.log($scope.nueva_asignacion);
+				})
+				.error(function(err){
+					console.log(err);
+				}).then(function(response){
+					$scope.listar_listas();
+				});	
+			}
+			
+
+        	$http({
 		        url: "/users",
 		        method: "GET",
 		        params: {"colaborador":1}
 		    })
-        		.success(function(data){
-                    $scope.usuarios=data;
-        		})
-        		.error(function(err){
-        			console.log(err);
-        		});
-		
+        	.success(function(data){
+                $scope.usuarios=data;
+        	})
+        	.error(function(err){
+        		console.log(err);
+        	});
+
+		});
 		
 		
 		
@@ -164,7 +164,9 @@ app.controller("asignar_colaborador", function($scope, $http,$window){
         		})
         		.error(function(err){
         			alert(err);
-        		});
+        		})
+				.then(function(response){
+				});
 		}
 		
 		

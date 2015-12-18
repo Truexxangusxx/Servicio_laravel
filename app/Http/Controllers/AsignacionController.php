@@ -39,11 +39,16 @@ class AsignacionController extends Controller
         $user_id =$request->input('user_id');
         $lista_id =$request->input('lista_id');
         $ventanilla =$request->input('ventanilla');
+        $id =$request->input('id');
+        $condicion_edicion="";
+        
+        if($id!=null){
+            $condicion_edicion=" and id<>".$id;
+        }
 
 
-
-        $ventanilla_asignada=Asignacion::whereRaw('user_id=? and ventanilla is not null', [$user_id])->count();
-        $ventanilla_diferente=Asignacion::whereRaw('user_id=? and ventanilla = ?', [$user_id, $ventanilla])->count();
+        $ventanilla_asignada=Asignacion::whereRaw('user_id=? and ventanilla is not null'.$condicion_edicion, [$user_id])->count();
+        $ventanilla_diferente=Asignacion::whereRaw('user_id=? and ventanilla = ?'.$condicion_edicion, [$user_id, $ventanilla])->count();
 
         if ($ventanilla_asignada>0){
             if ($ventanilla_diferente>0){
@@ -58,14 +63,23 @@ class AsignacionController extends Controller
             $error=false;
         }
         
-        if (Asignacion::whereRaw('user_id=? and lista_id=?', [$user_id,$lista_id])->count()>0)
+        if (Asignacion::whereRaw('user_id=? and lista_id=?'.$condicion_edicion, [$user_id,$lista_id])->count()>0)
         {
             $error=true;
             $msg="No se puede asignar el colaborador a la misma linea dos veces";
         }
         
         if ($error==false){
-            $asignacion = Asignacion::create(['lista_id' => $lista_id, "user_id" => $user_id, "ventanilla" => $ventanilla]);
+            if ($id==null){
+                $asignacion = Asignacion::create(['lista_id' => $lista_id, "user_id" => $user_id, "ventanilla" => $ventanilla]);
+            }
+            else{
+                $asignacion=Asignacion::find($id);
+                $asignacion->lista_id=$lista_id;
+                $asignacion->user_id=$user_id;
+                $asignacion->ventanilla=$ventanilla;
+                $asignacion->save();
+            }
         }
         else{
             $asignacion = null;
