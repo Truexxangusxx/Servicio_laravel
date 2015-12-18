@@ -9,6 +9,7 @@
     <link href="{{ URL::asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('assets/css/personalizado.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('assets/css/examples.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
  	<script src="{{ URL::asset('assets/js/jquery-1.11.3.min.js') }}"></script>
     <script src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ URL::asset('assets/js/angular.min.js') }}"></script>

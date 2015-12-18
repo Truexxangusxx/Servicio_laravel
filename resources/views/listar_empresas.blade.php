@@ -25,8 +25,8 @@
             <td>[[empresa.nombre]]</td>
             <td>[[empresa.codigo]]</td>
             <td>
-              <a href="#" class="btn btn-default" role="button" ng-click="editar_empresa([[empresa.id]])">Editar</a>
-              <a href="#" class="btn btn-default" role="button" ng-click="eliminar_empresa([[empresa.id]])">Eliminar</a>
+              <a href="#" class="btn btn-default" role="button" ng-click="editar_empresa([[empresa.id]])"><i class=" fa fa-pencil"></i></a>
+              <a href="#" class="btn btn-default" role="button" ng-click="eliminar_empresa([[empresa.id]])"><i class=" fa fa-trash"></i></a>
             </td>
         </tr>
          

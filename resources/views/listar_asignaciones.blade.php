@@ -29,8 +29,8 @@
             <td>[[asignacion.lista.nombre]]</td>
             <td>[[asignacion.lista.empresa.nombre]]</td>
             <td>
-              <a href = "#" class = "btn btn-default" role = "button" ng-click="eliminar_asignacion([[asignacion.id]])">eliminar</a>
-              <a href = "#" class = "btn btn-default" role = "button" ng-click="editar_asignacion([[asignacion.id]])">editar</a>
+              <a href = "#" class = "btn btn-default" role = "button" ng-click="editar_asignacion([[asignacion.id]])"><i class=" fa fa-pencil"></i></a>
+              <a href = "#" class = "btn btn-default" role = "button" ng-click="eliminar_asignacion([[asignacion.id]])"><i class=" fa fa-trash"></i></a>
             </td>
         </tr>
          

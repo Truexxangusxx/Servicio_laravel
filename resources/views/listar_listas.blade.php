@@ -25,8 +25,8 @@
             <td>[[lista.nombre]]</td>
             <td>[[lista.empresa.nombre]]</td>
             <td>
-              <a href="#" class="btn btn-default" role="button" ng-click="editar_lista([[lista.id]])">Editar</a>
-              <a href="#" class="btn btn-default" role="button" ng-click="eliminar_lista([[lista.id]])">Eliminar</a>
+              <a href="#" class="btn btn-default" ng-click="editar_lista([[lista.id]])"><i class=" fa fa-pencil"></i></a>
+              <a href="#" class="btn btn-default" role="button" ng-click="eliminar_lista([[lista.id]])"><i class=" fa fa-trash"></i></a>
              </td>
         </tr>
          
