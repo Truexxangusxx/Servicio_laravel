@@ -36,14 +36,17 @@ class AtencionController extends Controller
     {
         header("Access-Control-Allow-Origin: *");
         header("Allow: GET, POST, OPTIONS");
-        
+        $error=false;
+        $msg="";
+        $user_loged_id=0;
         
         $lista_id =$request->input('lista_id');
         if ($request->input('user_id')==null){
             $user_id=User::whereRaw('email=?', ['generico@mail.com'])->first()->id;
         }
         else{
-            $user_id =$request->input('user_id');   
+            $user_id =$request->input('user_id');
+            $user_loged_id=$user_id;   
         }
         
         if ($request->input('modo')==null){
@@ -54,94 +57,98 @@ class AtencionController extends Controller
         }
         
         
-        $usuario = User::find($user_id);
-        
-        $atencion = Atencion::create(['user_id' => $user_id, "lista_id" => $lista_id
-        ,'modo' => $modo]);
-        
-        
-        $codigo=$atencion->id.date("d").date("i");
-        
-        
-        $atencion->codigo = $codigo;
-        $atencion->save();
-        
-        
-        
-        switch ($modo) {
-            case "correo":
-                $data = array(
-                'codigo' => $atencion->codigo,
-                'usuario' => $usuario,
-                );
-            
-                Mail::send('mails.test', $data, function ($message) use ($usuario) {
-                    $message->to($usuario->email)->subject('codigo de generacion');
-                });
-                
-                
-                $result = "Se envió un correo a: ".$usuario->email;        
-                break;
-            case "imprimir":
-                
-                $atencion->posicion = Atencion::whereRaw('numero is not null and lista_id = ?', [$atencion->lista_id])->count()+1;
-                $atencion->save();
-                
-                $lista = Lista::find( $atencion->lista_id);
-                $atencion->numero=$lista->codigo.$atencion->posicion;
-                $atencion->fecha_generado=Carbon::now();
-                $atencion->estado_id=1;//estado 1 es en espera
-                $atencion->save();
-                $result = $atencion->numero;
-                
-                break;
-            case "imprimir_generico":
-                
-                $codigo=$atencion->id.date("d").date("i");
-                $atencion->codigo = $codigo;
-                $atencion->save();
-                
-                $atencion->posicion = Atencion::whereRaw('numero is not null and lista_id = ?', [$atencion->lista_id])->count()+1;
-                $atencion->save();
-                
-                $lista = Lista::find( $atencion->lista_id);
-                $atencion->numero=$lista->codigo.$atencion->posicion;
-                $atencion->fecha_generado=Carbon::now();
-                $atencion->estado_id=1;//estado 1 es en espera
-                $atencion->nombre=$request->input('nombre');;
-                $atencion->dni=$request->input('dni');;
-                $atencion->save();
-                $result = $atencion->numero;
-                
-                break;
-            case "sms":
-                
-                $result = $atencion->codigo;
-                
-                break;
-            case "sms_generico":
-                
-                $codigo=$atencion->id.date("d").date("i");
-                $atencion->codigo = $codigo;
-                $atencion->save();
-                
-                $atencion->posicion = Atencion::whereRaw('numero is not null and lista_id = ?', [$atencion->lista_id])->count()+1;
-                $atencion->save();
-                
-                $lista = Lista::find( $atencion->lista_id);
-                $atencion->numero=$lista->codigo.$atencion->posicion;
-                $atencion->fecha_generado=Carbon::now();
-                $atencion->estado_id=1;//estado 1 es en espera
-                $atencion->nombre=$request->input('nombre');;
-                $atencion->dni=$request->input('dni');;
-                $atencion->save();
-                $result = $atencion->numero;
-                
-                break;
+        $cantidad_tickets=Atencion::whereRaw('user_id=? and created_at>=curdate()',[$user_loged_id])->get()->count();
+        if ($cantidad_tickets>3){
+            $error=true;
+            $msg="Solo se permiten generar un maximo de 4 tickets por dia";
         }
         
-        
-        
+        if ($error){
+            $result=$msg;    
+            $atencion=null;
+        }
+        else{
+            $usuario = User::find($user_id);
+            $atencion = Atencion::create(['user_id' => $user_id, "lista_id" => $lista_id
+            ,'modo' => $modo]);
+            
+            $codigo=$atencion->id.date("d").date("i");
+            
+            $atencion->codigo = $codigo;
+            $atencion->save();
+            
+            switch ($modo) {
+                case "correo":
+                    $data = array(
+                    'codigo' => $atencion->codigo,
+                    'usuario' => $usuario,
+                    );
+                
+                    Mail::send('mails.test', $data, function ($message) use ($usuario) {
+                        $message->to($usuario->email)->subject('codigo de generacion');
+                    });
+                    
+                    
+                    $result = "Se envió un correo a: ".$usuario->email;        
+                    break;
+                case "imprimir":
+                    
+                    $atencion->posicion = Atencion::whereRaw('numero is not null and lista_id = ?', [$atencion->lista_id])->count()+1;
+                    $atencion->save();
+                    
+                    $lista = Lista::find( $atencion->lista_id);
+                    $atencion->numero=$lista->codigo.$atencion->posicion;
+                    $atencion->fecha_generado=Carbon::now();
+                    $atencion->estado_id=1;//estado 1 es en espera
+                    $atencion->save();
+                    $result = $atencion->numero;
+                    
+                    break;
+                case "imprimir_generico":
+                    
+                    $codigo=$atencion->id.date("d").date("i");
+                    $atencion->codigo = $codigo;
+                    $atencion->save();
+                    
+                    $atencion->posicion = Atencion::whereRaw('numero is not null and lista_id = ?', [$atencion->lista_id])->count()+1;
+                    $atencion->save();
+                    
+                    $lista = Lista::find( $atencion->lista_id);
+                    $atencion->numero=$lista->codigo.$atencion->posicion;
+                    $atencion->fecha_generado=Carbon::now();
+                    $atencion->estado_id=1;//estado 1 es en espera
+                    $atencion->nombre=$request->input('nombre');;
+                    $atencion->dni=$request->input('dni');;
+                    $atencion->save();
+                    $result = $atencion->numero;
+                    
+                    break;
+                case "sms":
+                    
+                    $result = $atencion->codigo;
+                    
+                    break;
+                case "sms_generico":
+                    
+                    $codigo=$atencion->id.date("d").date("i");
+                    $atencion->codigo = $codigo;
+                    $atencion->save();
+                    
+                    $atencion->posicion = Atencion::whereRaw('numero is not null and lista_id = ?', [$atencion->lista_id])->count()+1;
+                    $atencion->save();
+                    
+                    $lista = Lista::find( $atencion->lista_id);
+                    $atencion->numero=$lista->codigo.$atencion->posicion;
+                    $atencion->fecha_generado=Carbon::now();
+                    $atencion->estado_id=1;//estado 1 es en espera
+                    $atencion->nombre=$request->input('nombre');;
+                    $atencion->dni=$request->input('dni');;
+                    $atencion->save();
+                    $result = $atencion->numero;
+                    
+                    break;
+            }    
+        }
         
         $request->session()->put('atencion', $atencion);
         return $result;
@@ -212,7 +219,7 @@ class AtencionController extends Controller
     }
     
     
-    public function obtener_lista(Request $request)
+    public function obtener_lista_asignada(Request $request)
     {
         header("Access-Control-Allow-Origin: *");
         header("Allow: GET, POST, OPTIONS");

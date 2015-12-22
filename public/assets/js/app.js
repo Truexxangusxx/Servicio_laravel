@@ -220,7 +220,7 @@ app.controller("atencion_controller", function($scope, $http,$window){
 		$scope.mostrar_cola=function(){
 		    $scope.user.user_id=$scope.sesion.id
 		    $http({
-		        url: "/obtener_lista",
+		        url: "/obtener_lista_asignada",
 		        method: "GET",
 		        params: $scope.user
 		    })

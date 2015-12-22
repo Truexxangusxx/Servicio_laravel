@@ -151,7 +151,7 @@ Route::get('obtener_sesion', 'AtencionController@obtener_sesion');
 
 Route::get('obtener_sesion_atencion', 'AtencionController@obtener_sesion_atencion');
 
-Route::get('obtener_lista', 'AtencionController@obtener_lista');
+Route::get('obtener_lista_asignada', 'AtencionController@obtener_lista_asignada');
 
 Route::get('atender_atencion', 'AtencionController@atender_atencion');
 
