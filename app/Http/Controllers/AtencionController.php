@@ -45,8 +45,14 @@ class AtencionController extends Controller
             $user_id=User::whereRaw('email=?', ['generico@mail.com'])->first()->id;
         }
         else{
-            $user_id =$request->input('user_id');
-            $user_loged_id=$user_id;   
+            $user_id=$request->input('user_id');
+
+            if($user_id==User::whereRaw('email=?', ['generico@mail.com'])->first()->id){
+                $user_loged_id=0;
+            }
+            else{
+                $user_loged_id=$user_id;    
+            }
         }
         
         if ($request->input('modo')==null){

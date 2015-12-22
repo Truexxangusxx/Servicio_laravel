@@ -31,7 +31,9 @@ class DatabaseSeeder extends Seeder
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++         
         User::create( [
             'name' => 'generico' ,
-            'email' => 'generico@mail.com'
+            'email' => 'generico@mail.com',
+            'password' => '123',
+            'generico' => '1'
         ] );
         User::create( [
             'name' => 'admin' ,

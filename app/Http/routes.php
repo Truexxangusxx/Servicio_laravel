@@ -111,7 +111,18 @@ Route::get('/', function () {
 });
 
 Route::get('totem', function () {
-    return view('disparar_ticket');
+    if (Session::has('user')){
+        if (Session::get('user')->generico==1){
+            return view('disparar_ticket');
+        }
+        else{
+            return view('solicitar_ticket');//reportar
+        }
+    }
+    else{
+        return view('iniciar_sesion');//reportar
+    }
+    
 });
 
 
