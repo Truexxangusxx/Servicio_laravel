@@ -466,6 +466,7 @@ app.controller("crear_user_controller", function($scope, $http){
         
 		
 		$scope.registrar_usuario=function(){
+            $scope.nuevo_usuario.dominio=window.location.origin;
 		    $('#myForm').validator('validate');
 		    if ($('.has-error').length){
 		        error('Complete correctamente los campos');
@@ -954,6 +955,7 @@ app.controller("accesos_controller", function($scope, $http,$window){
         		.success(function(data){
                     $scope.user=data;
                     mensaje('Usuario modificado correctamente');
+                    $scope.buscar_user();
         		})
         		.error(function(err){
         			alert(err);

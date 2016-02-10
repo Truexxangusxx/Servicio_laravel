@@ -20,7 +20,8 @@
         <div class = "checkbox">
           <label><input type="checkbox" ng-model="user.admin" ng-true-value="1" ng-false-value="0"> Administrador</label>
         </div>
-        
+        [[user.admin]]
+        [[user.colaborador]]
         <br/>
         <a href="#" class="btn btn-default" role = "button" ng-click="actualizar_user()">Actualizar</a>
         <a href="#" class="btn btn-default" role = "button" >Cancelar</a>

@@ -201,7 +201,7 @@ class AtencionController extends Controller
             
             $array=$atencion->toArray();
             $array['predecesores'] = $predecesores;
-            $array['tiempo'] = ($predecesores*$estimado)." minutos";
+            $array['tiempo'] = round($predecesores*$estimado,2)." minutos";
             Session::put('atencion', $array);
             return $array;
         }

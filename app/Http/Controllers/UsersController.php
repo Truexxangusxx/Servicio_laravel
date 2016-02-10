@@ -54,6 +54,7 @@ class UsersController extends Controller{
                 $email =$request->input('email');
                 $password =$request->input('password');
                 $telefono =$request->input('telefono');
+                $dominio =$request->input('dominio');
                 
                 if(User::whereRaw('email=?', [$email])->count()>0){
                     $user = null;
@@ -66,7 +67,7 @@ class UsersController extends Controller{
                     $user->save();
                     
                     $data = array(
-                        'url' => "http://localhost:8000/confirmar?mail=".$user->email."&confirmar=/".$user->codigo,
+                        'url' => $dominio."/confirmar?mail=".$user->email."&confirmar=".$user->codigo,
                     );
                     Mail::send('mails.confirmacion', $data, function ($message) use ($user) {
                         $message->to($user->email)->subject('Confirmar registro');
