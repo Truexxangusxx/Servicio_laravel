@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Atencion extends Model
 {
-    protected $fillable = ['user_id', 'lista_id', 'modo','codigo','colaborador_id','posicion','numero','estado_id','updated_at','fecha_generado','fecha_asignado','fecha_atendido','fecha_ausente'];
+    protected $fillable = ['user_id', 'lista_id', 'modo','codigo','colaborador_id','posicion','numero','estado_id','updated_at','fecha_generado','fecha_asignado','fecha_atendido','fecha_ausente','telefono'];
     
     
     public function user()

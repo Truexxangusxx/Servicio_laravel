@@ -123,8 +123,9 @@ class AtencionController extends Controller
                     $atencion->numero=$lista->codigo.$atencion->posicion;
                     $atencion->fecha_generado=Carbon::now();
                     $atencion->estado_id=1;//estado 1 es en espera
-                    $atencion->nombre=$request->input('nombre');;
-                    $atencion->dni=$request->input('dni');;
+                    $atencion->nombre=$request->input('nombre');
+                    $atencion->dni=$request->input('dni');
+                    $atencion->telefono=$request->input('telefono');
                     $atencion->save();
                     $result = $atencion->numero;
                     
@@ -147,8 +148,9 @@ class AtencionController extends Controller
                     $atencion->numero=$lista->codigo.$atencion->posicion;
                     $atencion->fecha_generado=Carbon::now();
                     $atencion->estado_id=1;//estado 1 es en espera
-                    $atencion->nombre=$request->input('nombre');;
-                    $atencion->dni=$request->input('dni');;
+                    $atencion->nombre=$request->input('nombre');
+                    $atencion->dni=$request->input('dni');
+                    $atencion->telefono=$request->input('telefono');
                     $atencion->save();
                     $result = $atencion->numero;
                     

@@ -17,7 +17,6 @@
         <input type="text" ng-model="nueva_atencion.nombre" class = "form-control" placeholder = "Ingrese su nombre"/><br/>
         <input type="tel" ng-model="nueva_atencion.dni" class = "form-control" placeholder = "Ingrese su DNI"/><br/>
         
-        
         <div>
         <input type="tel" ng-model="nueva_atencion.telefono" class = "form-control" placeholder = "Ingrese su numero celular"/><br/>
         </div>
