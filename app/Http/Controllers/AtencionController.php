@@ -276,10 +276,20 @@ class AtencionController extends Controller
         if ($estado_id==3){$atencion->fecha_ausente=Carbon::now();}
         $atencion->save();
         
-        $telefono_avisar=DB::table('atencions')->select(DB::raw('telefono'))->where('colaborador_id','=',null)->where('id','>',40)->where('estado_id','=','1')->orderBy('posicion','desc')->take(3)->first()->telefono;
+        //$telefono_avisar=DB::table('atencions')->select(DB::raw('telefono'))->where('colaborador_id','=',null)->where('id','>',40)->where('estado_id','=','1')->orderBy('posicion','desc')->take(3)->first()->telefono;
+        $telefonos=DB::table('atencions')->select(DB::raw('telefono'))->where('colaborador_id','=',null)->where('id','>',$id)->where('estado_id','=','1')->orderBy('posicion','asc')->take(3)->get();
+        if ( count($telefonos)==3){
+            $telefono=$telefonos[2]->telefono;
+            //aca se envia el sms al telefono
+            $consulta = Request::create('https://rest.nexmo.com/sms/json?api_key=1e6c4f1d&api_secret=d7484e91&from=NEXMO&to=51994085900&text=prueba', 'POST');
+            $instance = json_decode(Route::dispatch($consulta)->getContent());
+        }
+        else{
+            $telefono="";
+        }
         
         //return $atencion;
-        return $telefono_avisar;
+        return ["telefono"=>$telefono, "consulta"=>$instance];
     }
     
     public function ultimo_atendido(Request $request)
