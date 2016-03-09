@@ -276,7 +276,10 @@ class AtencionController extends Controller
         if ($estado_id==3){$atencion->fecha_ausente=Carbon::now();}
         $atencion->save();
         
-        return $atencion;
+        $telefono_avisar=DB::table('atencions')->select(DB::raw('telefono'))->where('colaborador_id','=',null)->where('id','>',40)->where('estado_id','=','1')->orderBy('posicion','desc')->take(3)->first()->telefono;
+        
+        //return $atencion;
+        return $telefono_avisar;
     }
     
     public function ultimo_atendido(Request $request)
