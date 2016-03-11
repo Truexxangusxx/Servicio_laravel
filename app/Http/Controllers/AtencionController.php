@@ -277,12 +277,13 @@ class AtencionController extends Controller
         $atencion->save();
         
         //$telefono_avisar=DB::table('atencions')->select(DB::raw('telefono'))->where('colaborador_id','=',null)->where('id','>',40)->where('estado_id','=','1')->orderBy('posicion','desc')->take(3)->first()->telefono;
-        $telefonos=DB::table('atencions')->select(DB::raw('telefono'))->where('colaborador_id','=',null)->where('id','>',$id)->where('estado_id','=','1')->orderBy('posicion','asc')->take(3)->get();
+        $telefonos=DB::table('atencions')->select(DB::raw('telefono'))->where('colaborador_id','=',null)->where('id','>',$id)->where('estado_id','=','1')->where('lista_id','=',$atencion->lista_id)->orderBy('posicion','asc')->take(3)->get();
         if ( count($telefonos)==3){
             $telefono=$telefonos[2]->telefono;
             //aca se envia el sms al telefono
             $mensaje="Quedan%203%20personas%20para%20su%20turno";
             $consulta=json_decode(file_get_contents("https://rest.nexmo.com/sms/json?api_key=1e6c4f1d&api_secret=d7484e91&from=NEXMO&to=51994085900&text=".$mensaje), true);
+            //$consulta="probando ando";
         }
         else{
             $telefono="";
