@@ -281,15 +281,15 @@ class AtencionController extends Controller
         if ( count($telefonos)==3){
             $telefono=$telefonos[2]->telefono;
             //aca se envia el sms al telefono
-            $consulta = Request::create('https://rest.nexmo.com/sms/json?api_key=1e6c4f1d&api_secret=d7484e91&from=NEXMO&to=51994085900&text=prueba', 'POST');
-            $instance = json_decode(Route::dispatch($consulta)->getContent());
+            $mensaje="Quedan%203%20personas%20para%20su%20turno";
+            $consulta=json_decode(file_get_contents("https://rest.nexmo.com/sms/json?api_key=1e6c4f1d&api_secret=d7484e91&from=NEXMO&to=51994085900&text=".$mensaje), true);
         }
         else{
             $telefono="";
         }
         
         //return $atencion;
-        return ["telefono"=>$telefono, "consulta"=>$instance];
+        return ["telefono"=>$telefono, "consulta"=>$consulta];
     }
     
     public function ultimo_atendido(Request $request)
