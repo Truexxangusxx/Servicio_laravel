@@ -7,8 +7,8 @@
 
 
   <form role="form">
-        <select class = "form-control" ng-model="empresa" ng-options="item.id as item.nombre for item in empresas track by item.id" ng-change="listar_listas()">
-            <option value="">Seleccione una empresa</option>
+        <select class = "form-control" ng-model="empresa" required ng-options="item.id as item.nombre for item in empresas" ng-change="listar_listas()">
+            
         </select><br/>
         <select class = "form-control" ng-model="nueva_atencion.lista_id" ng-options="item.id as item.nombre for item in listas track by item.id">
             <option value="">Seleccione una lista</option>

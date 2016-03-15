@@ -679,6 +679,7 @@ app.controller("listar_lista_controller", function($scope, $http, $window){
 app.controller("solicitar_ticket_controller", function($scope, $http,$window){
 		$scope.atencion = {};
 		$scope.empresas = {};
+        $scope.empresa = 0;
 		$scope.listas = {};
 		$scope.usuarios = {};
 		
@@ -703,10 +704,16 @@ app.controller("solicitar_ticket_controller", function($scope, $http,$window){
 		    })
         		.success(function(data){
                     $scope.empresas=data;
+                    $scope.empresa = $scope.empresas[0].id;
         		})
         		.error(function(err){
         			console.log(err);
-        		});
+        		})
+                .then(function successCallback(response) {
+                    $scope.listar_listas();
+                }, function errorCallback(response) {
+                
+              });
         		
         		
         $http({
