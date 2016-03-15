@@ -747,18 +747,13 @@ app.controller("solicitar_ticket_controller", function($scope, $http,$window){
                     }
 					else{
 						if ($scope.nueva_atencion.modo =="sms"){
-							mensaje("se enviará el codigo de activacion a su celular");
-							$http({
-								url: "https://rest.nexmo.com/sms/json",
-								method: "POST",
-								params: {"api_key":"1e6c4f1d", "api_secret":"d7484e91", "from": "NEXMO", "to":"51994085900", "text":data}
-							})
-								.success(function(data2){
-									mensaje("se envio el codigo de activacion a su celular");
-								})
-								.error(function(err){
-									console.log(err);
-								});		
+                            if (data.length>8){
+                                mensaje(data);    
+                            }
+                            else{
+                                mensaje("se envio el codigo de activacion a su celular");
+                            }
+                            console.log(data);
 						}
 						else{
 							$("#impresion h1").text(data);
@@ -782,20 +777,8 @@ app.controller("solicitar_ticket_controller", function($scope, $http,$window){
 		        params: $scope.nueva_atencion
 		    })
         		.success(function(data){
-                    mensaje("se enviará el numero de atencion a su celular");
-                        $http({
-					        url: "https://rest.nexmo.com/sms/json",
-							method: "POST",
-							params: {"api_key":"1e6c4f1d", "api_secret":"d7484e91", "from": "NEXMO", "to":"51994085900", "text":data}
-					    })
-			        		.success(function(data2){
-			                    mensaje("se envio el numero de atencion a su celular");
-			        		})
-			        		.error(function(err){
-			        			console.log(err);
-			        		});
-                    
-                    
+                    mensaje("se envio el numero de atencion a su celular");
+                    console.log(data);
         		})
         		.error(function(err){
         			console.log(err);
