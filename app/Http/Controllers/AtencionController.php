@@ -134,7 +134,7 @@ class AtencionController extends Controller
                     
                     $result = $atencion->codigo;
                     $mensaje="Su%20codigo%20es:".$result;
-                    $consulta=json_decode(file_get_contents("https://rest.nexmo.com/sms/json?api_key=1e6c4f1d&api_secret=d7484e91&from=NEXMO&to=51994085900&text=".$mensaje), true);
+                    //$consulta=json_decode(file_get_contents("https://rest.nexmo.com/sms/json?api_key=1e6c4f1d&api_secret=d7484e91&from=NEXMO&to=51994085900&text=".$mensaje), true);
                     
                     break;
                 case "sms_generico":
@@ -157,7 +157,7 @@ class AtencionController extends Controller
                     $result = $atencion->numero;
                     
                     $mensaje="Su%20ticket%20es:".$result;
-                    $consulta=json_decode(file_get_contents("https://rest.nexmo.com/sms/json?api_key=1e6c4f1d&api_secret=d7484e91&from=NEXMO&to=51994085900&text=".$mensaje), true);
+                    //$consulta=json_decode(file_get_contents("https://rest.nexmo.com/sms/json?api_key=1e6c4f1d&api_secret=d7484e91&from=NEXMO&to=51994085900&text=".$mensaje), true);
                     
                     break;
             }    
