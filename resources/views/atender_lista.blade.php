@@ -14,6 +14,7 @@
     <select class = "form-control" ng-model="user.lista_id" required ng-options="item.id as item.nombre for item in listas" ng-change="mostrar_cola()">
         
     </select><br/>
+    Existen [[atencions.count]] usuarios en espera
     <div align="center" class="cont-img" style="padding:20px 0px 20px 0px;">
     
         <img style="margin: 5px;" class="img-responsive" src="{{ asset('assets/images/user1.png') }}" width="50" height="50">[[ultimo_atendido.numero]]

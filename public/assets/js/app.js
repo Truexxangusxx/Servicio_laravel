@@ -177,6 +177,7 @@ app.controller("atencion_controller", function($scope, $http, $window) {
     $scope.listas = {};
     $scope.usuarios = {};
     $scope.user = {};
+    $scope.atencions.count = 0;
 
 
     function temporizador() {
@@ -224,8 +225,10 @@ app.controller("atencion_controller", function($scope, $http, $window) {
             params: $scope.user
         })
             .success(function(data) {
-                $scope.atencions = data;
+                $scope.atencions = data.result;
+                $scope.atencions.count = data.count;
                 console.log($scope.atencions);
+                console.log(data.count);
             })
             .error(function(err) {
                 console.log(err);

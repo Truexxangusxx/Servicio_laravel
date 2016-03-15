@@ -241,12 +241,10 @@ class AtencionController extends Controller
         $user_id=$request->input('user_id');
         
         $atenciones = Atencion::whereRaw('lista_id=? and estado_id=1 and (colaborador_id is null or colaborador_id = ?)',[$lista_id,$user_id])->take(4)->get();
-        /*if (count($atenciones)>0){
-            $atenciones[0]->colaborador_id=$user_id;
-            $atenciones[0]->save();
-        }*/
+        $count = Atencion::whereRaw('lista_id=? and estado_id=1 and (colaborador_id is null or colaborador_id = ?)',[$lista_id,$user_id])->count();
         
-        return $atenciones;
+        //return $atenciones;
+        return ["result"=>$atenciones, "count"=>$count];
     }
     
     public function asignar_atencion(Request $request)
@@ -299,8 +297,7 @@ class AtencionController extends Controller
             
             //aca se envia el sms al telefono
             $mensaje="Quedan%203%20personas%20para%20su%20turno:".$telefono;
-            $consulta=json_decode(file_get_contents("https://rest.nexmo.com/sms/json?api_key=1e6c4f1d&api_secret=d7484e91&from=NEXMO&to=51994085900&text=".$mensaje), true);
-            //$consulta="probando ando telefono:".$telefono;
+            //$consulta=json_decode(file_get_contents("https://rest.nexmo.com/sms/json?api_key=1e6c4f1d&api_secret=d7484e91&from=NEXMO&to=51994085900&text=".$mensaje), true);
         }
         else{
             $telefono="";
