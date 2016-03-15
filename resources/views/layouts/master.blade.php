@@ -27,7 +27,7 @@
 function mensaje(msg){
 $("#error").hide();
 $("#mensaje a").text(msg);
-    $("#mensaje").fadeIn('slow');
+    $("#mensaje").fadeIn('slow').delay(5000).fadeOut();
 $("#mensaje a").click(function (e) {
         $("#mensaje").hide();
 });
@@ -36,7 +36,7 @@ $("#mensaje a").click(function (e) {
 function error(msg){
 $("#mensaje").hide();
 $("#error a").text(msg);
-    $("#error").fadeIn('slow');
+    $("#error").fadeIn('slow').delay(5000).fadeOut();
 $("#error a").click(function (e) {
         $("#error").hide();
     });
